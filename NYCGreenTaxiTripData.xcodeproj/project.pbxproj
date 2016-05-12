@@ -349,7 +349,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData.NYCGreenTaxiTripData;
+				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -360,7 +360,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData.NYCGreenTaxiTripData;
+				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -408,6 +408,7 @@
 				896541C21CE4C61D0064F040 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		896541C31CE4C61D0064F040 /* Build configuration list for PBXNativeTarget "NYCGreenTaxiTripDataTests" */ = {
 			isa = XCConfigurationList;
@@ -416,6 +417,7 @@
 				896541C51CE4C61D0064F040 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
