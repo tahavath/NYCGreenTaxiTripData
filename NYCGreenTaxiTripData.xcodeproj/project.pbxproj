@@ -24,6 +24,7 @@
 		896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541DE1CE5B48A0064F040 /* ModelCoordinator.m */; };
 		896541E81CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */; };
 		896541F11CE5BE020064F040 /* ModelCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */; };
+		896541F51CE5E7B40064F040 /* TripsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F41CE5E7B40064F040 /* TripsListTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYCGreenTaxiTripDataUITests.m; sourceTree = "<group>"; };
 		896541E91CE5B61A0064F040 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelCoordinatorTests.m; sourceTree = "<group>"; };
+		896541F31CE5E7B40064F040 /* TripsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListTableViewController.h; sourceTree = "<group>"; };
+		896541F41CE5E7B40064F040 /* TripsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListTableViewController.m; sourceTree = "<group>"; };
 		A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCGreenTaxiTripData.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +174,8 @@
 			children = (
 				896541C91CE4C98C0064F040 /* MainViewController.h */,
 				896541CA1CE4C98C0064F040 /* MainViewController.m */,
+				896541F31CE5E7B40064F040 /* TripsListTableViewController.h */,
+				896541F41CE5E7B40064F040 /* TripsListTableViewController.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -439,6 +444,7 @@
 				896541D91CE4D3470064F040 /* ParentTripData.m in Sources */,
 				896541DA1CE4D3470064F040 /* TripData+CoreDataProperties.m in Sources */,
 				896541DB1CE4D3470064F040 /* TripData.m in Sources */,
+				896541F51CE5E7B40064F040 /* TripsListTableViewController.m in Sources */,
 				896541A01CE4C61D0064F040 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
