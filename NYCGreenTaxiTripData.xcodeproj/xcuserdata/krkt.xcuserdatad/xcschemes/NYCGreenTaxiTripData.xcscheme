@@ -38,6 +38,16 @@
                ReferencedContainer = "container:NYCGreenTaxiTripData.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "896541E41CE5B61A0064F040"
+               BuildableName = "NYCGreenTaxiTripDataUITests.xctest"
+               BlueprintName = "NYCGreenTaxiTripDataUITests"
+               ReferencedContainer = "container:NYCGreenTaxiTripData.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -21,10 +21,20 @@
 		896541D91CE4D3470064F040 /* ParentTripData.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541D31CE4D3470064F040 /* ParentTripData.m */; };
 		896541DA1CE4D3470064F040 /* TripData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541D51CE4D3470064F040 /* TripData+CoreDataProperties.m */; };
 		896541DB1CE4D3470064F040 /* TripData.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541D71CE4D3470064F040 /* TripData.m */; };
+		896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541DE1CE5B48A0064F040 /* ModelCoordinator.m */; };
+		896541E81CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */; };
+		896541F11CE5BE020064F040 /* ModelCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		896541B81CE4C61D0064F040 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 896541931CE4C61D0064F040 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8965419A1CE4C61D0064F040;
+			remoteInfo = NYCGreenTaxiTripData;
+		};
+		896541EA1CE5B61A0064F040 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 896541931CE4C61D0064F040 /* Project object */;
 			proxyType = 1;
@@ -59,6 +69,13 @@
 		896541D51CE4D3470064F040 /* TripData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TripData+CoreDataProperties.m"; sourceTree = "<group>"; };
 		896541D61CE4D3470064F040 /* TripData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripData.h; sourceTree = "<group>"; };
 		896541D71CE4D3470064F040 /* TripData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripData.m; sourceTree = "<group>"; };
+		896541DD1CE5B48A0064F040 /* ModelCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelCoordinator.h; sourceTree = "<group>"; };
+		896541DE1CE5B48A0064F040 /* ModelCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelCoordinator.m; sourceTree = "<group>"; };
+		896541E01CE5B4A10064F040 /* ModelCoordinatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelCoordinatorProtocol.h; sourceTree = "<group>"; };
+		896541E51CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NYCGreenTaxiTripDataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYCGreenTaxiTripDataUITests.m; sourceTree = "<group>"; };
+		896541E91CE5B61A0064F040 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelCoordinatorTests.m; sourceTree = "<group>"; };
 		A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCGreenTaxiTripData.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +96,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		896541E21CE5B61A0064F040 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -87,6 +111,7 @@
 			children = (
 				8965419D1CE4C61D0064F040 /* NYCGreenTaxiTripData */,
 				896541BA1CE4C61D0064F040 /* NYCGreenTaxiTripDataTests */,
+				896541E61CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests */,
 				8965419C1CE4C61D0064F040 /* Products */,
 				E1BDAD267D18601A59A84B2F /* Pods */,
 				AEC9DE03667F1FABB1F6BB4B /* Frameworks */,
@@ -98,6 +123,7 @@
 			children = (
 				8965419B1CE4C61D0064F040 /* NYCGreenTaxiTripData.app */,
 				896541B71CE4C61D0064F040 /* NYCGreenTaxiTripDataTests.xctest */,
+				896541E51CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,6 +131,7 @@
 		8965419D1CE4C61D0064F040 /* NYCGreenTaxiTripData */ = {
 			isa = PBXGroup;
 			children = (
+				896541DC1CE5B4670064F040 /* Model */,
 				896541CF1CE4D3280064F040 /* Entities */,
 				896541C81CE4C9590064F040 /* View */,
 				896541A11CE4C61D0064F040 /* AppDelegate.h */,
@@ -131,6 +158,7 @@
 		896541BA1CE4C61D0064F040 /* NYCGreenTaxiTripDataTests */ = {
 			isa = PBXGroup;
 			children = (
+				896541EF1CE5BDE60064F040 /* Model */,
 				896541BB1CE4C61D0064F040 /* NYCGreenTaxiTripDataTests.m */,
 				896541BD1CE4C61D0064F040 /* Info.plist */,
 			);
@@ -168,6 +196,33 @@
 				896541D71CE4D3470064F040 /* TripData.m */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		896541DC1CE5B4670064F040 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				896541DD1CE5B48A0064F040 /* ModelCoordinator.h */,
+				896541DE1CE5B48A0064F040 /* ModelCoordinator.m */,
+				896541E01CE5B4A10064F040 /* ModelCoordinatorProtocol.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		896541E61CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests */ = {
+			isa = PBXGroup;
+			children = (
+				896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */,
+				896541E91CE5B61A0064F040 /* Info.plist */,
+			);
+			path = NYCGreenTaxiTripDataUITests;
+			sourceTree = "<group>";
+		};
+		896541EF1CE5BDE60064F040 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		AEC9DE03667F1FABB1F6BB4B /* Frameworks */ = {
@@ -228,6 +283,24 @@
 			productReference = 896541B71CE4C61D0064F040 /* NYCGreenTaxiTripDataTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		896541E41CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 896541EC1CE5B61A0064F040 /* Build configuration list for PBXNativeTarget "NYCGreenTaxiTripDataUITests" */;
+			buildPhases = (
+				896541E11CE5B61A0064F040 /* Sources */,
+				896541E21CE5B61A0064F040 /* Frameworks */,
+				896541E31CE5B61A0064F040 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				896541EB1CE5B61A0064F040 /* PBXTargetDependency */,
+			);
+			name = NYCGreenTaxiTripDataUITests;
+			productName = NYCGreenTaxiTripDataUITests;
+			productReference = 896541E51CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -241,6 +314,10 @@
 						CreatedOnToolsVersion = 7.3.1;
 					};
 					896541B61CE4C61D0064F040 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 8965419A1CE4C61D0064F040;
+					};
+					896541E41CE5B61A0064F040 = {
 						CreatedOnToolsVersion = 7.3.1;
 						TestTargetID = 8965419A1CE4C61D0064F040;
 					};
@@ -261,6 +338,7 @@
 			targets = (
 				8965419A1CE4C61D0064F040 /* NYCGreenTaxiTripData */,
 				896541B61CE4C61D0064F040 /* NYCGreenTaxiTripDataTests */,
+				896541E41CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -277,6 +355,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		896541B51CE4C61D0064F040 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		896541E31CE5B61A0064F040 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */,
 				896541AC1CE4C61D0064F040 /* NYCGreenTaxiTripData.xcdatamodeld in Sources */,
 				896541A31CE4C61D0064F040 /* AppDelegate.m in Sources */,
 				896541CB1CE4C98C0064F040 /* MainViewController.m in Sources */,
@@ -353,7 +439,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				896541F11CE5BE020064F040 /* ModelCoordinatorTests.m in Sources */,
 				896541BC1CE4C61D0064F040 /* NYCGreenTaxiTripDataTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		896541E11CE5B61A0064F040 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				896541E81CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +459,11 @@
 			isa = PBXTargetDependency;
 			target = 8965419A1CE4C61D0064F040 /* NYCGreenTaxiTripData */;
 			targetProxy = 896541B81CE4C61D0064F040 /* PBXContainerItemProxy */;
+		};
+		896541EB1CE5B61A0064F040 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8965419A1CE4C61D0064F040 /* NYCGreenTaxiTripData */;
+			targetProxy = 896541EA1CE5B61A0064F040 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -497,6 +597,7 @@
 		};
 		896541C41CE4C61D0064F040 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NYCGreenTaxiTripDataTests/Info.plist;
@@ -509,6 +610,7 @@
 		};
 		896541C51CE4C61D0064F040 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1940E98140D57D1C945F3E8B /* Pods-NYCGreenTaxiTripData.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NYCGreenTaxiTripDataTests/Info.plist;
@@ -516,6 +618,30 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData.NYCGreenTaxiTripDataTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NYCGreenTaxiTripData.app/NYCGreenTaxiTripData";
+			};
+			name = Release;
+		};
+		896541ED1CE5B61A0064F040 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = NYCGreenTaxiTripDataUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData.NYCGreenTaxiTripDataUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = NYCGreenTaxiTripData;
+			};
+			name = Debug;
+		};
+		896541EE1CE5B61A0064F040 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1940E98140D57D1C945F3E8B /* Pods-NYCGreenTaxiTripData.release.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = NYCGreenTaxiTripDataUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData.NYCGreenTaxiTripDataUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = NYCGreenTaxiTripData;
 			};
 			name = Release;
 		};
@@ -548,6 +674,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		896541EC1CE5B61A0064F040 /* Build configuration list for PBXNativeTarget "NYCGreenTaxiTripDataUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				896541ED1CE5B61A0064F040 /* Debug */,
+				896541EE1CE5B61A0064F040 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 
