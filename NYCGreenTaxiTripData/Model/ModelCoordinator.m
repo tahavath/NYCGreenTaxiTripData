@@ -53,7 +53,10 @@
 		// 2 create RKManagedObjectStore using model
 		_managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:_managedObjectModel];
 		
-		// 3 create SQLite persistent store
+		// 3 create persistent store coordinator
+		[_managedObjectStore createPersistentStoreCoordinator];
+		
+		// 4 create SQLite persistent store
 		NSError *error = nil;
 		BOOL success = RKEnsureDirectoryExistsAtPath(RKApplicationDataDirectory(), &error);
 		if (! success) {
@@ -65,10 +68,13 @@
 			RKLogError(@"Failed adding persistent store at path '%@': %@", path, error);
 		}
 		
-		// 4 create managed object contexts and assaign them to class properties
+		// 5 create managed object contexts and assaign them to class properties
 		[_managedObjectStore createManagedObjectContexts];
 		_persistentStoreMOC = [_managedObjectStore persistentStoreManagedObjectContext];
 		_mainQueueMOC = [_managedObjectStore mainQueueManagedObjectContext];
+		
+		// 6 set default object store for rest kit
+		[RKManagedObjectStore setDefaultStore:_managedObjectStore];
 	}
 	
 	return self;

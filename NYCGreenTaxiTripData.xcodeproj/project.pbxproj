@@ -131,6 +131,7 @@
 		8965419D1CE4C61D0064F040 /* NYCGreenTaxiTripData */ = {
 			isa = PBXGroup;
 			children = (
+				896541F21CE5E6C40064F040 /* Networking */,
 				896541DC1CE5B4670064F040 /* Model */,
 				896541CF1CE4D3280064F040 /* Entities */,
 				896541C81CE4C9590064F040 /* View */,
@@ -223,6 +224,13 @@
 				896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		896541F21CE5E6C40064F040 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		AEC9DE03667F1FABB1F6BB4B /* Frameworks */ = {

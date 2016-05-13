@@ -26,7 +26,8 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hm6-lq-5va">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" id="Qt3-8K-JuU" userLabel="download percent"/>
+                                    <barButtonItem title="Trips" id="Qt3-8K-JuU" userLabel="trips button"/>
+                                    <barButtonItem title="download progress" id="z8j-uC-Kab"/>
                                 </items>
                             </toolbar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VOd-Rn-Cum">
@@ -48,14 +49,43 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="downloadPercentBarButtonItem" destination="Qt3-8K-JuU" id="3VP-uY-Mbc"/>
+                        <outlet property="downloadProgressBarButton" destination="z8j-uC-Kab" id="DIn-bG-tXW"/>
                         <outlet property="mapView" destination="VOd-Rn-Cum" id="U0H-ss-WSZ"/>
                         <outlet property="toolbar" destination="hm6-lq-5va" id="h2h-XA-bsy"/>
+                        <outlet property="tripsBarButton" destination="Qt3-8K-JuU" id="yaz-9W-jvq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="215" y="464"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="WZg-hg-k3I">
+            <objects>
+                <tableViewController id="xCC-Xf-0gf" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="d93-KB-sFg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5sz-AW-bHL">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5sz-AW-bHL" id="jda-6O-wgF">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xCC-Xf-0gf" id="PgG-ix-ttm"/>
+                            <outlet property="delegate" destination="xCC-Xf-0gf" id="gKt-e0-ohU"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jv6-oc-CM3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="877" y="464"/>
         </scene>
     </scenes>
 </document>
