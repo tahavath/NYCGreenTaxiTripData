@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C3A952A25A51792BB0608A4 /* libPods-NYCGreenTaxiTripData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48DA0F3345E4CDCD62A11076 /* libPods-NYCGreenTaxiTripData.a */; };
 		896541A01CE4C61D0064F040 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8965419F1CE4C61D0064F040 /* main.m */; };
 		896541A31CE4C61D0064F040 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541A21CE4C61D0064F040 /* AppDelegate.m */; };
 		896541A91CE4C61D0064F040 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 896541A71CE4C61D0064F040 /* Main.storyboard */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1940E98140D57D1C945F3E8B /* Pods-NYCGreenTaxiTripData.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCGreenTaxiTripData.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData.release.xcconfig"; sourceTree = "<group>"; };
+		48DA0F3345E4CDCD62A11076 /* libPods-NYCGreenTaxiTripData.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NYCGreenTaxiTripData.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8965419B1CE4C61D0064F040 /* NYCGreenTaxiTripData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYCGreenTaxiTripData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8965419F1CE4C61D0064F040 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		896541A11CE4C61D0064F040 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,6 +59,7 @@
 		896541D51CE4D3470064F040 /* TripData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TripData+CoreDataProperties.m"; sourceTree = "<group>"; };
 		896541D61CE4D3470064F040 /* TripData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripData.h; sourceTree = "<group>"; };
 		896541D71CE4D3470064F040 /* TripData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripData.m; sourceTree = "<group>"; };
+		A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCGreenTaxiTripData.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				896541CD1CE4CC590064F040 /* MapKit.framework in Frameworks */,
+				3C3A952A25A51792BB0608A4 /* libPods-NYCGreenTaxiTripData.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +88,8 @@
 				8965419D1CE4C61D0064F040 /* NYCGreenTaxiTripData */,
 				896541BA1CE4C61D0064F040 /* NYCGreenTaxiTripDataTests */,
 				8965419C1CE4C61D0064F040 /* Products */,
+				E1BDAD267D18601A59A84B2F /* Pods */,
+				AEC9DE03667F1FABB1F6BB4B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,6 +170,23 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		AEC9DE03667F1FABB1F6BB4B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48DA0F3345E4CDCD62A11076 /* libPods-NYCGreenTaxiTripData.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E1BDAD267D18601A59A84B2F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */,
+				1940E98140D57D1C945F3E8B /* Pods-NYCGreenTaxiTripData.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -170,9 +194,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 896541C01CE4C61D0064F040 /* Build configuration list for PBXNativeTarget "NYCGreenTaxiTripData" */;
 			buildPhases = (
+				D9003FC8EAEBEA2C2CFA4494 /* 📦 Check Pods Manifest.lock */,
 				896541971CE4C61D0064F040 /* Sources */,
 				896541981CE4C61D0064F040 /* Frameworks */,
 				896541991CE4C61D0064F040 /* Resources */,
+				B0368E86A48C8C81D2A3B2A5 /* 📦 Embed Pods Frameworks */,
+				AD6F3A5D9E6519C7B35E4F16 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,6 +284,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AD6F3A5D9E6519C7B35E4F16 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0368E86A48C8C81D2A3B2A5 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9003FC8EAEBEA2C2CFA4494 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		896541971CE4C61D0064F040 /* Sources */ = {
@@ -398,6 +473,7 @@
 		};
 		896541C11CE4C61D0064F040 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
@@ -409,6 +485,7 @@
 		};
 		896541C21CE4C61D0064F040 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1940E98140D57D1C945F3E8B /* Pods-NYCGreenTaxiTripData.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
