@@ -99,14 +99,14 @@
 		_descriptorsDictionary = [NSMutableDictionary dictionary];
 		
 		RKEntityMapping *tripsMapping = [RKEntityMapping mappingForEntityForName:[TripData entityName] inManagedObjectStore:self.managedObjectStore];
-		
 		[tripsMapping
 		 addAttributeMappingsFromDictionary:[TripData attributeMappingsDictionary]];
+		tripsMapping.identificationAttributes = [TripData identificationAttributes];
 		
 		RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
 													responseDescriptorWithMapping:tripsMapping
 													method:RKRequestMethodGET
-													pathPattern:@"https://data.cityofnewyork.us/resource/h4pe-ymjc.json?$select=:*,*&$limit=100&$offset=0"
+													pathPattern:nil
 													keyPath:nil
 													statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 		

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary *)attributeMappingsDictionary;
 + (NSString *)sortDescriptorName;
 + (BOOL)sortAscending;
++ (NSArray *)identificationAttributes;
 
 @end
 

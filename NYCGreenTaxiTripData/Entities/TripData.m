@@ -16,8 +16,21 @@
 
 + (NSDictionary *)attributeMappingsDictionary {
 	NSMutableDictionary *entityMapping = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-										  @"lpep_pickup_datetime", @"pickupDateTime",
-										  @"total_amount", @"totalAmount",
+										  @"dropoffDateTime", @"lpep_dropoff_datetime",
+										  @"dropoffLatitude", @"dropoff_latitude",
+										  @"dropoffLongitude", @"dropoff_longitude",
+										  @"extra", @"extra",
+										  @"fareAmount", @"fare_amount",
+										  @"mtaTax", @"mta_tax",
+										  @"passengerCount", @"passenger_count",
+										  @"paymentType", @"payment_type",
+										  @"pickupDateTime", @"lpep_pickup_datetime",
+										  @"pickupLatitude", @"pickup_latitude",
+										  @"pickupLongitude", @"pickup_longitude",
+										  @"tipAmount", @"tip_amount",
+										  @"tollsAmount", @"tolls_amount",
+										  @"totalAmount", @"total_amount",
+										  @"tripDistance", @"trip_distance",
 										  nil];
 	
 	[entityMapping addEntriesFromDictionary:[super attributeMappingsDictionary]];

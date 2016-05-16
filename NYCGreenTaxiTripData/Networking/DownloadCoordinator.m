@@ -8,8 +8,11 @@
 
 #import "DownloadCoordinator.h"
 #import "ModelCoordinator.h"
+#import "TripData.h"
 
 @interface DownloadCoordinator ()
+
+@property (nonatomic) id<RKManagedObjectCaching> objectCache;
 
 @end
 
@@ -29,7 +32,10 @@
 
 - (void)downloadNextItems:(NSUInteger)amount {
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://data.cityofnewyork.us/resource/h4pe-ymjc.json?$select=:*,*&$limit=100&$offset=0"]];
-//	RKManagedObjectRequestOperation *managedObjectRequestOperation = [RKManagedObjectRequestOperation new];
+	RKManagedObjectRequestOperation *op = [[RKManagedObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[[[ModelCoordinator sharedInstance] getDescriptorForEntity:[TripData entityName]]]];
+	[op setManagedObjectCache:self.objectCache];
+	op.managedObjectContext = [[ModelCoordinator sharedInstance] mainQueueContext];
+	[[NSOperationQueue currentQueue] addOperation:op];
 }
 
 #pragma mark - init methods
@@ -48,6 +54,15 @@
 	}
 	
 	return self;
+}
+
+#pragma mark - properties lazy initializators
+- (id<RKManagedObjectCaching>)objectCache {
+	if (!_objectCache) {
+		_objectCache = [RKFetchRequestManagedObjectCache new];
+	}
+	
+	return _objectCache;
 }
 
 @end

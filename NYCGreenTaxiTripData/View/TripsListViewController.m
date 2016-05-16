@@ -85,6 +85,9 @@ NSString *const THVTripCellIdentifier = @"TripCell";
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	[self.tripsTableView reloadData];
+}
 
 
 #pragma mark - lazy properties initializers

@@ -15,8 +15,12 @@
 }
 
 + (NSDictionary *)attributeMappingsDictionary {
-	//@":created_at": @"createdAt",
-	return [NSDictionary dictionary];
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"createdAt", @":created_at",
+			@"entityId", @":id",
+			@"updatedAt", @":updated_at",
+			@"version", @":version",
+			nil];
 }
 
 + (NSString *)sortDescriptorName {
@@ -25,6 +29,10 @@
 
 + (BOOL)sortAscending {
 	return YES;
+}
+
++ (NSArray *)identificationAttributes {
+	return @[@"entityId"];
 }
 
 @end

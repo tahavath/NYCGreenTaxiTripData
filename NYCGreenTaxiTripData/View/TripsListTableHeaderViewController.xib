@@ -40,7 +40,6 @@
                 <constraint firstItem="HGi-PD-N81" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="REJ-V2-5QV"/>
                 <constraint firstItem="QXp-FV-fkC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="Zmy-gx-Nja"/>
                 <constraint firstItem="HGi-PD-N81" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="dCV-tR-LGO"/>
-                <constraint firstItem="QXp-FV-fkC" firstAttribute="leading" secondItem="HGi-PD-N81" secondAttribute="trailing" constant="119" id="vMP-ZV-sfM"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

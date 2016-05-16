@@ -7,6 +7,7 @@
 //
 
 #import "TripsListTableHeaderViewController.h"
+#import "DownloadCoordinator.h"
 
 @interface TripsListTableHeaderViewController ()
 
@@ -24,5 +25,6 @@
 }
 
 - (IBAction)startStopDownload:(id)sender {
+	[[DownloadCoordinator sharedInstance] downloadNextItems:100];
 }
 @end

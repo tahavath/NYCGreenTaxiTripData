@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15B42" minimumToolsVersion="Automatic">
     <entity name="ParentEntity" representedClassName="ParentEntity" isAbstract="YES" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="dataYear" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="dataYear" optional="YES" attributeType="Integer 16" defaultValueString="2013" syncable="YES"/>
         <attribute name="entityId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,6 +15,7 @@
         <attribute name="fareAmount" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="mtaTax" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="passengerCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="paymentType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="pickupDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="pickupLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="pickupLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -25,6 +26,6 @@
     </entity>
     <elements>
         <element name="ParentEntity" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="TripData" positionX="-54" positionY="0" width="128" height="255"/>
+        <element name="TripData" positionX="-54" positionY="0" width="128" height="270"/>
     </elements>
 </model>
