@@ -7,8 +7,7 @@
 //
 
 #import "ModelCoordinator.h"
-
-@class RKObjectManager;
+#import "TripData.h"
 
 @interface ModelCoordinator ()
 
@@ -17,11 +16,13 @@
 @property (nonatomic) NSPersistentStore *persistentStore;
 @property (nonatomic) NSManagedObjectContext *persistentStoreMOC;
 @property (nonatomic) NSManagedObjectContext *mainQueueMOC;
+@property (nonatomic) NSMutableDictionary *descriptorsDictionary;
 
 @end
 
 @implementation ModelCoordinator
 
+#pragma mark - ModelCoordinatorProtocol methods
 + (id<ModelCoordinatorProtocol>)sharedInstance {
 	static ModelCoordinator *modelCoordinatorSharedInstance = nil;
 	static dispatch_once_t onceToken;
@@ -31,6 +32,18 @@
 	});
 	
 	return modelCoordinatorSharedInstance;
+}
+
+- (NSManagedObjectContext *)mainQueueContext {
+	return self.mainQueueMOC;
+}
+
+- (NSManagedObjectContext *)persistentStoreContext {
+	return self.persistentStoreMOC;
+}
+
+- (RKResponseDescriptor *)getDescriptorForEntity:(NSString *)entityName {
+	return [self.descriptorsDictionary objectForKey:entityName];
 }
 
 #pragma mark - init methods
@@ -78,6 +91,29 @@
 	}
 	
 	return self;
+}
+
+#pragma mark - properties lazy initializers
+- (NSMutableDictionary *)descriptorsDictionary {
+	if (!_descriptorsDictionary) {
+		_descriptorsDictionary = [NSMutableDictionary dictionary];
+		
+		RKEntityMapping *tripsMapping = [RKEntityMapping mappingForEntityForName:[TripData entityName] inManagedObjectStore:self.managedObjectStore];
+		
+		[tripsMapping
+		 addAttributeMappingsFromDictionary:[TripData attributeMappingsDictionary]];
+		
+		RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
+													responseDescriptorWithMapping:tripsMapping
+													method:RKRequestMethodGET
+													pathPattern:@"https://data.cityofnewyork.us/resource/h4pe-ymjc.json?$select=:*,*&$limit=100&$offset=0"
+													keyPath:nil
+													statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+		
+		[_descriptorsDictionary setObject:responseDescriptor forKey:[TripData entityName]];
+	}
+	
+	return _descriptorsDictionary;
 }
 
 @end

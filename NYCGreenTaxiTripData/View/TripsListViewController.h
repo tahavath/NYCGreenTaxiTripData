@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 extern NSString *const THVTripCellIdentifier;
 
-@interface TripsListTableViewController : UITableViewController
+@interface TripsListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
 
 @end

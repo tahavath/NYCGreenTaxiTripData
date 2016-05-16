@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15B42" minimumToolsVersion="Automatic">
-    <entity name="ParentTripData" representedClassName="ParentTripData" isAbstract="YES" syncable="YES">
+    <entity name="ParentEntity" representedClassName="ParentEntity" isAbstract="YES" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dataYear" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="entityId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="TripData" representedClassName="TripData" parentEntity="ParentTripData" syncable="YES">
+    <entity name="TripData" representedClassName="TripData" parentEntity="ParentEntity" syncable="YES">
         <attribute name="dropoffDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dropoffLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="dropoffLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -20,7 +24,7 @@
         <attribute name="tripDistance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ParentTripData" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="ParentEntity" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="TripData" positionX="-54" positionY="0" width="128" height="255"/>
     </elements>
 </model>

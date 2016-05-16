@@ -22,10 +22,9 @@
                                 <items>
                                     <barButtonItem title="Trips" id="Qt3-8K-JuU" userLabel="trips button">
                                         <connections>
-                                            <segue destination="xCC-Xf-0gf" kind="show" id="4qO-a6-RLC"/>
+                                            <segue destination="FlJ-qM-tem" kind="show" id="cVi-Ca-REd"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="download progress" id="z8j-uC-Kab"/>
                                 </items>
                             </toolbar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VOd-Rn-Cum">
@@ -45,7 +44,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="NYC Green Taxi Trip Data" id="XG9-h2-hvY"/>
                     <connections>
-                        <outlet property="downloadProgressBarButton" destination="z8j-uC-Kab" id="DIn-bG-tXW"/>
                         <outlet property="mapView" destination="VOd-Rn-Cum" id="U0H-ss-WSZ"/>
                         <outlet property="toolbar" destination="hm6-lq-5va" id="h2h-XA-bsy"/>
                         <outlet property="tripsBarButton" destination="Qt3-8K-JuU" id="yaz-9W-jvq"/>
@@ -55,49 +53,42 @@
             </objects>
             <point key="canvasLocation" x="1027" y="464"/>
         </scene>
-        <!--Trips List Table View Controller-->
-        <scene sceneID="WZg-hg-k3I">
+        <!--Trips List View Controller-->
+        <scene sceneID="JWH-KY-FpS">
             <objects>
-                <tableViewController id="xCC-Xf-0gf" customClass="TripsListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="d93-KB-sFg">
+                <viewController id="FlJ-qM-tem" customClass="TripsListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MPl-Ze-XAq"/>
+                        <viewControllerLayoutGuide type="bottom" id="WU4-QL-QmA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A6y-dQ-xEp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YKc-O2-gof">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="FlJ-qM-tem" id="BTo-O9-mRi"/>
+                                    <outlet property="delegate" destination="FlJ-qM-tem" id="sVT-GM-wWn"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="TripCell" textLabel="1CF-3G-zJT" detailTextLabel="oBe-ZT-125" style="IBUITableViewCellStyleSubtitle" id="5sz-AW-bHL">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5sz-AW-bHL" id="jda-6O-wgF">
-                                    <rect key="frame" x="0.0" y="0.0" width="533" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Pickup datetime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1CF-3G-zJT">
-                                            <rect key="frame" x="15" y="5" width="117" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Total amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oBe-ZT-125">
-                                            <rect key="frame" x="15" y="25" width="69" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="xCC-Xf-0gf" id="PgG-ix-ttm"/>
-                            <outlet property="delegate" destination="xCC-Xf-0gf" id="gKt-e0-ohU"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jv6-oc-CM3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="YKc-O2-gof" secondAttribute="trailing" id="6PO-X2-P89"/>
+                            <constraint firstItem="YKc-O2-gof" firstAttribute="top" secondItem="A6y-dQ-xEp" secondAttribute="top" id="BnS-bw-Qg3"/>
+                            <constraint firstItem="WU4-QL-QmA" firstAttribute="top" secondItem="YKc-O2-gof" secondAttribute="bottom" id="Yd9-Cm-SHt"/>
+                            <constraint firstItem="YKc-O2-gof" firstAttribute="leading" secondItem="A6y-dQ-xEp" secondAttribute="leading" id="nsn-cm-uwI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tripsTableView" destination="YKc-O2-gof" id="M2C-M0-oi6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J7y-hU-koX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1782" y="464"/>
+            <point key="canvasLocation" x="1748" y="462"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3E5-PS-PND">

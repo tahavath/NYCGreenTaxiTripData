@@ -2,7 +2,7 @@
 //  TripData+CoreDataProperties.m
 //  NYCGreenTaxiTripData
 //
-//  Created by KRKT on 12/05/16.
+//  Created by KRKT on 13/05/16.
 //  Copyright © 2016 tahavath. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,19 +13,19 @@
 
 @implementation TripData (CoreDataProperties)
 
-@dynamic pickupDateTime;
 @dynamic dropoffDateTime;
+@dynamic dropoffLatitude;
+@dynamic dropoffLongitude;
+@dynamic extra;
+@dynamic fareAmount;
+@dynamic mtaTax;
+@dynamic passengerCount;
+@dynamic pickupDateTime;
 @dynamic pickupLatitude;
 @dynamic pickupLongitude;
-@dynamic dropoffLongitude;
-@dynamic dropoffLatitude;
-@dynamic passengerCount;
-@dynamic tripDistance;
-@dynamic fareAmount;
-@dynamic extra;
-@dynamic mtaTax;
 @dynamic tipAmount;
 @dynamic tollsAmount;
 @dynamic totalAmount;
+@dynamic tripDistance;
 
 @end

@@ -16,6 +16,5 @@ extern double const THVStartingRegionDistance;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tripsBarButton;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *downloadProgressBarButton;
 
 @end

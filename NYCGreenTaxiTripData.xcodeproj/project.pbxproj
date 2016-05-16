@@ -17,14 +17,19 @@
 		896541BC1CE4C61D0064F040 /* NYCGreenTaxiTripDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541BB1CE4C61D0064F040 /* NYCGreenTaxiTripDataTests.m */; };
 		896541CB1CE4C98C0064F040 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541CA1CE4C98C0064F040 /* MainViewController.m */; };
 		896541CD1CE4CC590064F040 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 896541CC1CE4CC590064F040 /* MapKit.framework */; };
-		896541D81CE4D3470064F040 /* ParentTripData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541D11CE4D3470064F040 /* ParentTripData+CoreDataProperties.m */; };
-		896541D91CE4D3470064F040 /* ParentTripData.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541D31CE4D3470064F040 /* ParentTripData.m */; };
-		896541DA1CE4D3470064F040 /* TripData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541D51CE4D3470064F040 /* TripData+CoreDataProperties.m */; };
-		896541DB1CE4D3470064F040 /* TripData.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541D71CE4D3470064F040 /* TripData.m */; };
 		896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541DE1CE5B48A0064F040 /* ModelCoordinator.m */; };
 		896541E81CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */; };
 		896541F11CE5BE020064F040 /* ModelCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */; };
-		896541F51CE5E7B40064F040 /* TripsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F41CE5E7B40064F040 /* TripsListTableViewController.m */; };
+		896541F51CE5E7B40064F040 /* TripsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F41CE5E7B40064F040 /* TripsListViewController.m */; };
+		896542001CE5F7820064F040 /* TripsListTableHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541FE1CE5F7820064F040 /* TripsListTableHeaderViewController.m */; };
+		896542011CE5F7820064F040 /* TripsListTableHeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 896541FF1CE5F7820064F040 /* TripsListTableHeaderViewController.xib */; };
+		896542061CE5F9EC0064F040 /* TripsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542041CE5F9EC0064F040 /* TripsListTableViewCell.m */; };
+		896542071CE5F9EC0064F040 /* TripsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 896542051CE5F9EC0064F040 /* TripsListTableViewCell.xib */; };
+		896542281CE60E3F0064F040 /* TripData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542211CE60E3F0064F040 /* TripData+CoreDataProperties.m */; };
+		896542291CE60E3F0064F040 /* TripData.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542231CE60E3F0064F040 /* TripData.m */; };
+		8965422A1CE60E3F0064F040 /* ParentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542251CE60E3F0064F040 /* ParentEntity+CoreDataProperties.m */; };
+		8965422B1CE60E3F0064F040 /* ParentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542271CE60E3F0064F040 /* ParentEntity.m */; };
+		896542311CE9B6370064F040 /* DownloadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542301CE9B6370064F040 /* DownloadCoordinator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,14 +67,6 @@
 		896541C91CE4C98C0064F040 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		896541CA1CE4C98C0064F040 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		896541CC1CE4CC590064F040 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		896541D01CE4D3470064F040 /* ParentTripData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParentTripData+CoreDataProperties.h"; sourceTree = "<group>"; };
-		896541D11CE4D3470064F040 /* ParentTripData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ParentTripData+CoreDataProperties.m"; sourceTree = "<group>"; };
-		896541D21CE4D3470064F040 /* ParentTripData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentTripData.h; sourceTree = "<group>"; };
-		896541D31CE4D3470064F040 /* ParentTripData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentTripData.m; sourceTree = "<group>"; };
-		896541D41CE4D3470064F040 /* TripData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TripData+CoreDataProperties.h"; sourceTree = "<group>"; };
-		896541D51CE4D3470064F040 /* TripData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TripData+CoreDataProperties.m"; sourceTree = "<group>"; };
-		896541D61CE4D3470064F040 /* TripData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripData.h; sourceTree = "<group>"; };
-		896541D71CE4D3470064F040 /* TripData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripData.m; sourceTree = "<group>"; };
 		896541DD1CE5B48A0064F040 /* ModelCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelCoordinator.h; sourceTree = "<group>"; };
 		896541DE1CE5B48A0064F040 /* ModelCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelCoordinator.m; sourceTree = "<group>"; };
 		896541E01CE5B4A10064F040 /* ModelCoordinatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelCoordinatorProtocol.h; sourceTree = "<group>"; };
@@ -77,8 +74,26 @@
 		896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NYCGreenTaxiTripDataUITests.m; sourceTree = "<group>"; };
 		896541E91CE5B61A0064F040 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelCoordinatorTests.m; sourceTree = "<group>"; };
-		896541F31CE5E7B40064F040 /* TripsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListTableViewController.h; sourceTree = "<group>"; };
-		896541F41CE5E7B40064F040 /* TripsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListTableViewController.m; sourceTree = "<group>"; };
+		896541F31CE5E7B40064F040 /* TripsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListViewController.h; sourceTree = "<group>"; };
+		896541F41CE5E7B40064F040 /* TripsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListViewController.m; sourceTree = "<group>"; };
+		896541FD1CE5F7820064F040 /* TripsListTableHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListTableHeaderViewController.h; sourceTree = "<group>"; };
+		896541FE1CE5F7820064F040 /* TripsListTableHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListTableHeaderViewController.m; sourceTree = "<group>"; };
+		896541FF1CE5F7820064F040 /* TripsListTableHeaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripsListTableHeaderViewController.xib; sourceTree = "<group>"; };
+		896542031CE5F9EC0064F040 /* TripsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListTableViewCell.h; sourceTree = "<group>"; };
+		896542041CE5F9EC0064F040 /* TripsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListTableViewCell.m; sourceTree = "<group>"; };
+		896542051CE5F9EC0064F040 /* TripsListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripsListTableViewCell.xib; sourceTree = "<group>"; };
+		896542201CE60E3F0064F040 /* TripData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TripData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		896542211CE60E3F0064F040 /* TripData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TripData+CoreDataProperties.m"; sourceTree = "<group>"; };
+		896542221CE60E3F0064F040 /* TripData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripData.h; sourceTree = "<group>"; };
+		896542231CE60E3F0064F040 /* TripData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripData.m; sourceTree = "<group>"; };
+		896542241CE60E3F0064F040 /* ParentEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParentEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		896542251CE60E3F0064F040 /* ParentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ParentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		896542261CE60E3F0064F040 /* ParentEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentEntity.h; sourceTree = "<group>"; };
+		896542271CE60E3F0064F040 /* ParentEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentEntity.m; sourceTree = "<group>"; };
+		8965422F1CE9B6370064F040 /* DownloadCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCoordinator.h; sourceTree = "<group>"; };
+		896542301CE9B6370064F040 /* DownloadCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadCoordinator.m; sourceTree = "<group>"; };
+		896542321CE9B6500064F040 /* DownloadCoordinatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCoordinatorProtocol.h; sourceTree = "<group>"; };
+		896542341CE9C8220064F040 /* NYCGreenTaxiTripData-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NYCGreenTaxiTripData-prefix.pch"; sourceTree = "<group>"; };
 		A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCGreenTaxiTripData.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				8965419F1CE4C61D0064F040 /* main.m */,
+				896542341CE9C8220064F040 /* NYCGreenTaxiTripData-prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -174,8 +190,7 @@
 			children = (
 				896541C91CE4C98C0064F040 /* MainViewController.h */,
 				896541CA1CE4C98C0064F040 /* MainViewController.m */,
-				896541F31CE5E7B40064F040 /* TripsListTableViewController.h */,
-				896541F41CE5E7B40064F040 /* TripsListTableViewController.m */,
+				896542021CE5F9930064F040 /* TripsScreen */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -192,14 +207,14 @@
 		896541CF1CE4D3280064F040 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				896541D01CE4D3470064F040 /* ParentTripData+CoreDataProperties.h */,
-				896541D11CE4D3470064F040 /* ParentTripData+CoreDataProperties.m */,
-				896541D21CE4D3470064F040 /* ParentTripData.h */,
-				896541D31CE4D3470064F040 /* ParentTripData.m */,
-				896541D41CE4D3470064F040 /* TripData+CoreDataProperties.h */,
-				896541D51CE4D3470064F040 /* TripData+CoreDataProperties.m */,
-				896541D61CE4D3470064F040 /* TripData.h */,
-				896541D71CE4D3470064F040 /* TripData.m */,
+				896542201CE60E3F0064F040 /* TripData+CoreDataProperties.h */,
+				896542211CE60E3F0064F040 /* TripData+CoreDataProperties.m */,
+				896542221CE60E3F0064F040 /* TripData.h */,
+				896542231CE60E3F0064F040 /* TripData.m */,
+				896542241CE60E3F0064F040 /* ParentEntity+CoreDataProperties.h */,
+				896542251CE60E3F0064F040 /* ParentEntity+CoreDataProperties.m */,
+				896542261CE60E3F0064F040 /* ParentEntity.h */,
+				896542271CE60E3F0064F040 /* ParentEntity.m */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -234,8 +249,26 @@
 		896541F21CE5E6C40064F040 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				8965422F1CE9B6370064F040 /* DownloadCoordinator.h */,
+				896542301CE9B6370064F040 /* DownloadCoordinator.m */,
+				896542321CE9B6500064F040 /* DownloadCoordinatorProtocol.h */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		896542021CE5F9930064F040 /* TripsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				896541F31CE5E7B40064F040 /* TripsListViewController.h */,
+				896541F41CE5E7B40064F040 /* TripsListViewController.m */,
+				896541FD1CE5F7820064F040 /* TripsListTableHeaderViewController.h */,
+				896541FE1CE5F7820064F040 /* TripsListTableHeaderViewController.m */,
+				896541FF1CE5F7820064F040 /* TripsListTableHeaderViewController.xib */,
+				896542031CE5F9EC0064F040 /* TripsListTableViewCell.h */,
+				896542041CE5F9EC0064F040 /* TripsListTableViewCell.m */,
+				896542051CE5F9EC0064F040 /* TripsListTableViewCell.xib */,
+			);
+			name = TripsScreen;
 			sourceTree = "<group>";
 		};
 		AEC9DE03667F1FABB1F6BB4B /* Frameworks */ = {
@@ -362,6 +395,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				896541B11CE4C61D0064F040 /* LaunchScreen.storyboard in Resources */,
+				896542011CE5F7820064F040 /* TripsListTableHeaderViewController.xib in Resources */,
+				896542071CE5F9EC0064F040 /* TripsListTableViewCell.xib in Resources */,
 				896541AE1CE4C61D0064F040 /* Assets.xcassets in Resources */,
 				896541A91CE4C61D0064F040 /* Main.storyboard in Resources */,
 			);
@@ -436,15 +471,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				896542311CE9B6370064F040 /* DownloadCoordinator.m in Sources */,
+				896542291CE60E3F0064F040 /* TripData.m in Sources */,
+				896542061CE5F9EC0064F040 /* TripsListTableViewCell.m in Sources */,
 				896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */,
+				896542001CE5F7820064F040 /* TripsListTableHeaderViewController.m in Sources */,
+				8965422B1CE60E3F0064F040 /* ParentEntity.m in Sources */,
 				896541AC1CE4C61D0064F040 /* NYCGreenTaxiTripData.xcdatamodeld in Sources */,
 				896541A31CE4C61D0064F040 /* AppDelegate.m in Sources */,
+				8965422A1CE60E3F0064F040 /* ParentEntity+CoreDataProperties.m in Sources */,
 				896541CB1CE4C98C0064F040 /* MainViewController.m in Sources */,
-				896541D81CE4D3470064F040 /* ParentTripData+CoreDataProperties.m in Sources */,
-				896541D91CE4D3470064F040 /* ParentTripData.m in Sources */,
-				896541DA1CE4D3470064F040 /* TripData+CoreDataProperties.m in Sources */,
-				896541DB1CE4D3470064F040 /* TripData.m in Sources */,
-				896541F51CE5E7B40064F040 /* TripsListTableViewController.m in Sources */,
+				896542281CE60E3F0064F040 /* TripData+CoreDataProperties.m in Sources */,
+				896541F51CE5E7B40064F040 /* TripsListViewController.m in Sources */,
 				896541A01CE4C61D0064F040 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,6 +628,8 @@
 			baseConfigurationReference = A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NYCGreenTaxiTripData/NYCGreenTaxiTripData-prefix.pch";
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData;
@@ -602,6 +642,8 @@
 			baseConfigurationReference = 1940E98140D57D1C945F3E8B /* Pods-NYCGreenTaxiTripData.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NYCGreenTaxiTripData/NYCGreenTaxiTripData-prefix.pch";
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData;
@@ -696,6 +738,7 @@
 				896541EE1CE5B61A0064F040 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ModelCoordinatorProtocol.h"
-#import <RestKit/RestKit.h>
-#import <RestKit/CoreData.h>
 
 @interface ModelCoordinator : NSObject <ModelCoordinatorProtocol>
 
