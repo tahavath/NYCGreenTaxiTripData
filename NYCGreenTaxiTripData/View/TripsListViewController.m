@@ -25,6 +25,8 @@ NSString *const THVSectionSortKeyPath = @"month";
 
 @property (nonatomic) TripsListTableHeaderViewController *tableHeaderVC;
 
+@property (nonatomic) BOOL shouldHideStatusBar;
+
 @end
 
 @implementation TripsListViewController
@@ -46,10 +48,27 @@ NSString *const THVSectionSortKeyPath = @"month";
 - (void)viewDidLoad {
 	self.title = @"Trips";
 	
+	if ([self.navigationController respondsToSelector:@selector(barHideOnSwipeGestureRecognizer)]) {
+		self.navigationController.hidesBarsOnSwipe = true;
+		[self.navigationController.barHideOnSwipeGestureRecognizer addTarget:self action:@selector(swipeOrTapToShowHideStatusBar:)];
+		[self.navigationController.barHideOnTapGestureRecognizer addTarget:self action:@selector(swipeOrTapToShowHideStatusBar:)];
+	}
+	
 	self.tableHeaderVC = [TripsListTableHeaderViewController new];
 	[self addChildViewController:self.tableHeaderVC];
 	
 	[self.tripsTableView registerNib:[UINib nibWithNibName:@"TripsListTableViewCell" bundle:nil] forCellReuseIdentifier:THVTripCellIdentifier];
+}
+
+- (void)swipeOrTapToShowHideStatusBar:(UISwipeGestureRecognizer *)recognizer {
+	self.shouldHideStatusBar = self.navigationController.navigationBar.frame.origin.y < 0;
+	[UIView animateWithDuration:0.18 animations:^{
+		[self setNeedsStatusBarAppearanceUpdate];
+	}];
+}
+
+- (BOOL)prefersStatusBarHidden {
+	return self.shouldHideStatusBar;
 }
 
 #pragma mark - UITableViewDataSource protocol
