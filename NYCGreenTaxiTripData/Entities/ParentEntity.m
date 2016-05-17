@@ -14,6 +14,29 @@
 	return @"ParentEntity";
 }
 
++ (NSString *)sortDescriptorName {
+	return @"entityId";
+}
+
++ (BOOL)sortAscending {
+	return YES;
+}
+
++ (RKResponseDescriptor *)responseDescriptorInObjectStore:(RKManagedObjectStore *)objectStore {
+	RKEntityMapping *entityMapping = [RKEntityMapping mappingForEntityForName:[[self class] entityName] inManagedObjectStore:objectStore];
+	[entityMapping addAttributeMappingsFromDictionary:[[self class] attributeMappingsDictionary]];
+	entityMapping.identificationAttributes = [[self class] identificationAttributes];
+	
+	RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
+												responseDescriptorWithMapping:entityMapping
+												method:RKRequestMethodGET
+												pathPattern:nil
+												keyPath:nil
+												statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+	
+	return responseDescriptor;
+}
+
 + (NSDictionary *)attributeMappingsDictionary {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			@"createdAt", @":created_at",
@@ -21,14 +44,6 @@
 			@"updatedAt", @":updated_at",
 			@"version", @":version",
 			nil];
-}
-
-+ (NSString *)sortDescriptorName {
-	return @"entityId";
-}
-
-+ (BOOL)sortAscending {
-	return YES;
 }
 
 + (NSArray *)identificationAttributes {

@@ -8,16 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "RestK"
+#import <RestKit/RestKit.h>
+#import <RestKit/ObjectMapping.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ParentEntity : NSManagedObject
 
 + (NSString *)entityName;
-+ (NSDictionary *)attributeMappingsDictionary;
+
 + (NSString *)sortDescriptorName;
 + (BOOL)sortAscending;
+
++ (RKResponseDescriptor *)responseDescriptorInObjectStore:(RKManagedObjectStore *)objectStore;
+
++ (NSDictionary *)attributeMappingsDictionary;
 + (NSArray *)identificationAttributes;
 
 @end

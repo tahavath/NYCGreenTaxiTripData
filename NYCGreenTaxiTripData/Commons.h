@@ -12,6 +12,9 @@ extern NSString *const THVUserDefaultsOverallTripsCountKey;
 extern NSUInteger const THVDefaultDownloadStep;
 extern NSString *const THVDownloadURLStringWithFormat;
 
+extern double const THVNewYorkLatitude;
+extern double const THVNewYorkLongitude;
+
 
 @interface Commons : NSObject
 

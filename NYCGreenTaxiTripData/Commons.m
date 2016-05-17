@@ -12,6 +12,9 @@ NSString *const THVUserDefaultsOverallTripsCountKey = @"overallTripsCount";
 NSUInteger const THVDefaultDownloadStep = 100;
 NSString *const THVDownloadURLStringWithFormat = @"https://data.cityofnewyork.us/resource/h4pe-ymjc.json?$select=:*,*&$limit=%lu&$offset=%lu";
 
+double const THVNewYorkLatitude = 40.7128;
+double const THVNewYorkLongitude = -74.0059;
+
 @implementation Commons
 
 + (id)readValueFromUserDefaultsForKey:(NSString *)key {

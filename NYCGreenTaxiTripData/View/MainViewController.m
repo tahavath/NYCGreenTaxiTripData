@@ -17,7 +17,7 @@ double const THVStartingRegionDistance = 2000.0;
 @implementation MainViewController
 
 - (void)viewDidLoad {
-	CLLocationCoordinate2D startingCoord = CLLocationCoordinate2DMake(40.7128, -74.0059);
+	CLLocationCoordinate2D startingCoord = CLLocationCoordinate2DMake(THVNewYorkLatitude, THVNewYorkLongitude);
 	MKCoordinateRegion startingRegion = MKCoordinateRegionMakeWithDistance(startingCoord, THVStartingRegionDistance, THVStartingRegionDistance);
 	
 	[self.mapView setRegion:startingRegion];

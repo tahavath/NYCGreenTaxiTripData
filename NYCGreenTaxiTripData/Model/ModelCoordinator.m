@@ -98,19 +98,7 @@
 	if (!_descriptorsDictionary) {
 		_descriptorsDictionary = [NSMutableDictionary dictionary];
 		
-		RKEntityMapping *tripsMapping = [RKEntityMapping mappingForEntityForName:[TripData entityName] inManagedObjectStore:self.managedObjectStore];
-		[tripsMapping
-		 addAttributeMappingsFromDictionary:[TripData attributeMappingsDictionary]];
-		tripsMapping.identificationAttributes = [TripData identificationAttributes];
-		
-		RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
-													responseDescriptorWithMapping:tripsMapping
-													method:RKRequestMethodGET
-													pathPattern:nil
-													keyPath:nil
-													statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-		
-		[_descriptorsDictionary setObject:responseDescriptor forKey:[TripData entityName]];
+		[_descriptorsDictionary setObject:[TripData responseDescriptorInObjectStore:self.managedObjectStore] forKey:[TripData entityName]];
 	}
 	
 	return _descriptorsDictionary;

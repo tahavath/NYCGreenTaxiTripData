@@ -12,8 +12,6 @@
 #import "ModelCoordinator.h"
 #import "TripData.h"
 
-//TODO: remove TripData.h reference - do everything with ModelCoordinator
-
 NSString *const THVTripCellIdentifier = @"TripCell";
 
 @interface TripsListViewController ()
