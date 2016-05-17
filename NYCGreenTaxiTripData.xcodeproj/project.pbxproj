@@ -32,6 +32,7 @@
 		8965422B1CE60E3F0064F040 /* ParentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542271CE60E3F0064F040 /* ParentEntity.m */; };
 		896542311CE9B6370064F040 /* DownloadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542301CE9B6370064F040 /* DownloadCoordinator.m */; };
 		896542361CE9E3030064F040 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 896542351CE9E3030064F040 /* CoreData.framework */; };
+		89E0B1FA1CE9FEA300F46344 /* Commons.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E0B1F91CE9FEA300F46344 /* Commons.m */; };
 		A177B3EABC630A84E98DA229 /* libPods-NYCGreenTaxiTripDataTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DCDC1F24254C1F43E2490EB /* libPods-NYCGreenTaxiTripDataTests.a */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,8 @@
 		896542321CE9B6500064F040 /* DownloadCoordinatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCoordinatorProtocol.h; sourceTree = "<group>"; };
 		896542351CE9E3030064F040 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		89E0B1F71CE9E89800F46344 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		89E0B1F91CE9FEA300F46344 /* Commons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commons.m; sourceTree = "<group>"; };
+		89E0B1FB1CE9FEC700F46344 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
 		A1A8C9E977DA12255100A659 /* Pods-NYCGreenTaxiTripDataUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCGreenTaxiTripDataUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYCGreenTaxiTripDataUITests/Pods-NYCGreenTaxiTripDataUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A1F2C2D7DFF1E0087C759A12 /* Pods-NYCGreenTaxiTripData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCGreenTaxiTripData.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NYCGreenTaxiTripData/Pods-NYCGreenTaxiTripData.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -184,6 +187,8 @@
 			children = (
 				89E0B1F71CE9E89800F46344 /* PrefixHeader.pch */,
 				8965419F1CE4C61D0064F040 /* main.m */,
+				89E0B1FB1CE9FEC700F46344 /* Commons.h */,
+				89E0B1F91CE9FEA300F46344 /* Commons.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 				896542291CE60E3F0064F040 /* TripData.m in Sources */,
 				896542061CE5F9EC0064F040 /* TripsListTableViewCell.m in Sources */,
 				896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */,
+				89E0B1FA1CE9FEA300F46344 /* Commons.m in Sources */,
 				896542001CE5F7820064F040 /* TripsListTableHeaderViewController.m in Sources */,
 				8965422B1CE60E3F0064F040 /* ParentEntity.m in Sources */,
 				896541AC1CE4C61D0064F040 /* NYCGreenTaxiTripData.xcdatamodeld in Sources */,

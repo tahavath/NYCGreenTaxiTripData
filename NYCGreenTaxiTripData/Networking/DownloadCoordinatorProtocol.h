@@ -13,6 +13,9 @@
 
 + (id<DownloadCoordinatorProtocol>)sharedInstance;
 
-- (void)downloadNextItems:(NSUInteger)amount;
+- (void)downloadTrips;
+
+- (BOOL)isDownloadPaused;
+- (void)pauseDownload;
 
 @end

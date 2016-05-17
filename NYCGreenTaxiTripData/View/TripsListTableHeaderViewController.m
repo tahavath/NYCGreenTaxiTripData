@@ -25,6 +25,12 @@
 }
 
 - (IBAction)startStopDownload:(id)sender {
-	[[DownloadCoordinator sharedInstance] downloadNextItems:100];
+	if ([[DownloadCoordinator sharedInstance] isDownloadPaused]) {
+		[[DownloadCoordinator sharedInstance] downloadTrips];
+		NSLog(@"Start downloading");
+	} else {
+		[[DownloadCoordinator sharedInstance] pauseDownload];
+		NSLog(@"Download paused");
+	}
 }
 @end
