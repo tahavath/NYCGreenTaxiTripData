@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import <RestKit/RestKit.h>
 #import <RestKit/ObjectMapping.h>
+#import <RKValueTransformers/RKValueTransformers.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

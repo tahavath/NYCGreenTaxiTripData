@@ -7,6 +7,7 @@
 //
 
 #import "TripData.h"
+#import "Commons.h"
 
 @implementation TripData
 

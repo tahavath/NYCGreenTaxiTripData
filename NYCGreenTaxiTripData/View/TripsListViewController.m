@@ -13,11 +13,13 @@
 #import "TripData.h"
 
 NSString *const THVTripCellIdentifier = @"TripCell";
+NSString *const THVSectionSortKeyPath = @"month";
 
 @interface TripsListViewController ()
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultController;
 @property (nonatomic) NSFetchRequest *fetchRequest;
+@property (nonatomic) NSSortDescriptor *sectionSortDescriptor;
 @property (nonatomic) NSSortDescriptor *sortDescriptor;
 @property (nonatomic) NSPredicate *fetchPredicate;
 
@@ -67,6 +69,34 @@ NSString *const THVTripCellIdentifier = @"TripCell";
 	return cell;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	NSString *storedSectionName = [((id<NSFetchedResultsSectionInfo>)self.fetchedResultController.sections[section]) name];
+	
+	NSDateFormatter *inputFormatter = [[Commons sharedInstance] monthFormatterForStoringAndSorting];
+	NSDateFormatter *outputFormatter = [[Commons sharedInstance] monthFormatterForSectionHeaders];
+	
+	NSDate *inputDate = [inputFormatter dateFromString:storedSectionName];
+	return [outputFormatter stringFromDate:inputDate];
+}
+
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+
+	NSArray<id<NSFetchedResultsSectionInfo>> *sections = [self.fetchedResultController sections];
+	
+	NSMutableArray *sectionsIndexTitles = [NSMutableArray arrayWithCapacity:sections.count];
+	
+	NSDateFormatter *inputFormatter = [[Commons sharedInstance] monthFormatterForStoringAndSorting];
+	NSDateFormatter *outputFormatter = [[Commons sharedInstance] monthFormatterForSectionsIndexTitles];
+	
+	
+	for (int i = 0; i < sections.count; i++) {
+		NSDate *inputDate = [inputFormatter dateFromString:[sections[i] name]];
+		sectionsIndexTitles[i] = [outputFormatter stringFromDate:inputDate];
+	}
+	
+	return sectionsIndexTitles;
+}
+
 #pragma mark - UITableViewDelegate protocol
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	NSLog(@"tapped row at: %@", indexPath);
@@ -76,7 +106,7 @@ NSString *const THVTripCellIdentifier = @"TripCell";
 - (void)configureCell:(TripsListTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	TripData *cellEntity = [self.fetchedResultController objectAtIndexPath:indexPath];
 	
-	cell.textLabel.text = [NSString stringWithFormat:@"Pickup time: %@", cellEntity.pickupDateTime];
+	cell.textLabel.text = [NSString stringWithFormat:@"Pickup time: %@", [[[Commons sharedInstance] dateFormatter] stringFromDate:cellEntity.pickupDateTime]];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"Total amount: %.02f", [cellEntity.totalAmount floatValue]];
 	
 	cell.backgroundColor = indexPath.row % 2 ? [UIColor grayColor] : [UIColor lightGrayColor];
@@ -91,7 +121,7 @@ NSString *const THVTripCellIdentifier = @"TripCell";
 #pragma mark - lazy properties initializers
 - (NSFetchedResultsController *)fetchedResultController {
 	if (!_fetchedResultController) {
-		_fetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:[[ModelCoordinator sharedInstance] mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
+		_fetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:[[ModelCoordinator sharedInstance] mainQueueContext] sectionNameKeyPath:THVSectionSortKeyPath cacheName:@"MonthsCache"];
 		[_fetchedResultController setDelegate:self];
 		
 		NSError *fetchError = nil;
@@ -107,11 +137,19 @@ NSString *const THVTripCellIdentifier = @"TripCell";
 - (NSFetchRequest *)fetchRequest {
 	if (!_fetchRequest) {
 		_fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[TripData entityName]];
-		_fetchRequest.sortDescriptors = @[self.sortDescriptor];
+		_fetchRequest.sortDescriptors = @[self.sectionSortDescriptor, self.sortDescriptor];
 		_fetchRequest.predicate = self.fetchPredicate;
 	}
 	
 	return _fetchRequest;
+}
+
+- (NSSortDescriptor *)sectionSortDescriptor {
+	if (!_sectionSortDescriptor) {
+		_sectionSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:THVSectionSortKeyPath ascending:YES];
+	}
+	
+	return _sectionSortDescriptor;
 }
 
 - (NSSortDescriptor *)sortDescriptor {

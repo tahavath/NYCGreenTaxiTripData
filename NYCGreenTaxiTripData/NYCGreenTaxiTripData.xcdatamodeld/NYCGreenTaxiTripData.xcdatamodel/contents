@@ -13,6 +13,7 @@
         <attribute name="dropoffLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="extra" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="fareAmount" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="month" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mtaTax" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="passengerCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="paymentType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -26,6 +27,6 @@
     </entity>
     <elements>
         <element name="ParentEntity" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="TripData" positionX="-54" positionY="0" width="128" height="270"/>
+        <element name="TripData" positionX="-54" positionY="0" width="128" height="285"/>
     </elements>
 </model>

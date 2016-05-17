@@ -55,6 +55,15 @@
 		[Commons writeValue:[NSNumber numberWithUnsignedInteger:currentOffset] toUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey];
 		NSLog(@"Trips downloaded\n\toffset = %lu", offset);
 		
+		for (TripData *trip in mappingResult.array) {
+			trip.month = [[[Commons sharedInstance] monthFormatterForStoringAndSorting] stringFromDate:trip.pickupDateTime];
+		}
+		NSError *error = nil;
+		[[[ModelCoordinator sharedInstance] mainQueueContext] saveToPersistentStore:&error];
+		if (error) {
+			NSLog(@"Error while saving to persistent store:\n%@\n%@", error.localizedDescription, error.userInfo);
+		}
+		
 		if (![[DownloadCoordinator sharedInstance] isDownloadPaused]) {
 			[[DownloadCoordinator sharedInstance] downloadTrips];
 		}
