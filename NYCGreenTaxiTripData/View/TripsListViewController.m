@@ -37,8 +37,6 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 @property (nonatomic) NSSortDescriptor *sortDescriptor;
 @property (nonatomic) NSPredicate *fetchPredicate;
 
-@property (nonatomic) BOOL shouldHideStatusBar;
-
 @property (nonatomic) CGFloat headerViewHeightStartingConstraintValue;
 
 @property (nonatomic) THVDragDirection previousDragDirection;
@@ -52,12 +50,6 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 - (void)viewDidLoad {
 	self.title = @"Trips";
 	
-	if ([self.navigationController respondsToSelector:@selector(barHideOnSwipeGestureRecognizer)]) {
-		self.navigationController.hidesBarsOnSwipe = true;
-		[self.navigationController.barHideOnSwipeGestureRecognizer addTarget:self action:@selector(swipeOrTapToShowHideStatusBar:)];
-		[self.navigationController.barHideOnTapGestureRecognizer addTarget:self action:@selector(swipeOrTapToShowHideStatusBar:)];
-	}
-	
 	self.headerViewHeightStartingConstraintValue = self.headerViewConstraint.constant;
 	
 	[self.tripsTableView registerNib:[UINib nibWithNibName:@"TripsListTableViewCell" bundle:nil] forCellReuseIdentifier:THVTripCellIdentifier];
@@ -66,17 +58,8 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	self.previousOffsetY = 0.0;
 	self.cumulativeY = 0.0;
 	
-}
-
-- (void)swipeOrTapToShowHideStatusBar:(UISwipeGestureRecognizer *)recognizer {
-	self.shouldHideStatusBar = self.navigationController.navigationBar.frame.origin.y < 0;
-	[UIView animateWithDuration:0.18 animations:^{
-		[self setNeedsStatusBarAppearanceUpdate];
-	}];
-}
-
-- (BOOL)prefersStatusBarHidden {
-	return self.shouldHideStatusBar;
+	self.downloadActivityIndicator.hidden = YES;
+	
 }
 
 #pragma mark - UITableViewDataSource protocol
