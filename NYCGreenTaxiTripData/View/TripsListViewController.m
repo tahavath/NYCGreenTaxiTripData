@@ -147,6 +147,22 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	cell.backgroundColor = indexPath.row % 2 ? [UIColor grayColor] : [UIColor lightGrayColor];
 }
 
+- (void)showTableHeaderView {
+	self.headerViewConstraint.constant = self.headerViewHeightStartingConstraintValue;
+	self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (UIBarButtonItem *)createNavBarIndicator {
+	UIActivityIndicatorView *navBarIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+	navBarIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+	[navBarIndicator startAnimating];
+	
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTableHeaderView)];
+	[navBarIndicator addGestureRecognizer:tap];
+	
+	return [[UIBarButtonItem alloc] initWithCustomView:navBarIndicator];
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate methods
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	[self.tripsTableView reloadData];
@@ -165,16 +181,11 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	
 	if (fabs(self.cumulativeY) > self.headerViewHeightStartingConstraintValue) {
 		if (currentDragDirection == THVDragDirectionDown && self.cumulativeY < 0) {
-			self.headerViewConstraint.constant = self.headerViewHeightStartingConstraintValue;
-			self.navigationItem.rightBarButtonItem = nil;
+			[self showTableHeaderView];
 		} else if (currentDragDirection == THVDragDirectionUp && self.cumulativeY > 0 && currentOffsetY > 0) {
 			self.headerViewConstraint.constant = 0;
 			if (![[DownloadCoordinator sharedInstance] isDownloadPaused] && !self.navigationItem.rightBarButtonItem) {
-				UIActivityIndicatorView *navBarIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-				navBarIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-				[navBarIndicator startAnimating];
-				UIBarButtonItem *rightNavBarItem = [[UIBarButtonItem alloc] initWithCustomView:navBarIndicator];
-				self.navigationItem.rightBarButtonItem = rightNavBarItem;
+				self.navigationItem.rightBarButtonItem = [self createNavBarIndicator];
 			}
 		}
 	}
