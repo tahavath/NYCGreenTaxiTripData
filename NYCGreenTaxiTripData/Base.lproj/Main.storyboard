@@ -65,7 +65,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7x8-zB-8K5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7x8-zB-8K5" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <subviews>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ulv-8M-QUP">
@@ -125,6 +125,7 @@
                     <connections>
                         <outlet property="downloadActivityIndicator" destination="TPk-AK-MoS" id="WI5-Mb-f55"/>
                         <outlet property="downloadProgressView" destination="Ulv-8M-QUP" id="yud-T0-5xI"/>
+                        <outlet property="headerView" destination="7x8-zB-8K5" id="XL6-AH-iXF"/>
                         <outlet property="headerViewConstraint" destination="73T-66-B2w" id="Sbx-KO-M7M"/>
                         <outlet property="startPauseDownloadButton" destination="7Tw-vi-V9T" id="LxE-Xd-lau"/>
                         <outlet property="tripsTableView" destination="YKc-O2-gof" id="M2C-M0-oi6"/>

@@ -17,6 +17,18 @@ NSString *const THVSectionSortKeyPath = @"month";
 NSString *const THVLabelPause = @"Pause";
 NSString *const THVLabelResume = @"Resume";
 
+typedef enum {
+	THVDragDirectionDown	= -1,
+	THVDragDirectionNone	= 0,
+	THVDragDirectionUp		= 1
+} THVDragDirection;
+
+THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
+	return currentOffsetY > previouseOffsetY ? THVDragDirectionUp :
+			currentOffsetY < previouseOffsetY ? THVDragDirectionDown:
+												THVDragDirectionNone;
+}
+
 @interface TripsListViewController ()
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultController;
@@ -26,6 +38,12 @@ NSString *const THVLabelResume = @"Resume";
 @property (nonatomic) NSPredicate *fetchPredicate;
 
 @property (nonatomic) BOOL shouldHideStatusBar;
+
+@property (nonatomic) CGFloat headerViewHeightStartingConstraintValue;
+
+@property (nonatomic) THVDragDirection previousDragDirection;
+@property (nonatomic) CGFloat previousOffsetY;
+@property (nonatomic) CGFloat cumulativeY;
 
 @end
 
@@ -40,11 +58,17 @@ NSString *const THVLabelResume = @"Resume";
 		[self.navigationController.barHideOnTapGestureRecognizer addTarget:self action:@selector(swipeOrTapToShowHideStatusBar:)];
 	}
 	
+	self.headerViewHeightStartingConstraintValue = self.headerViewConstraint.constant;
+	
 	[self.tripsTableView registerNib:[UINib nibWithNibName:@"TripsListTableViewCell" bundle:nil] forCellReuseIdentifier:THVTripCellIdentifier];
+	
+	self.previousDragDirection = THVDragDirectionNone;
+	self.previousOffsetY = 0.0;
+	self.cumulativeY = 0.0;
+	
 }
 
 - (void)swipeOrTapToShowHideStatusBar:(UISwipeGestureRecognizer *)recognizer {
-	NSLog(@"swipeOrTapToShowHideStatusBar");
 	self.shouldHideStatusBar = self.navigationController.navigationBar.frame.origin.y < 0;
 	[UIView animateWithDuration:0.18 animations:^{
 		[self setNeedsStatusBarAppearanceUpdate];
@@ -120,6 +144,27 @@ NSString *const THVLabelResume = @"Resume";
 	[self.tripsTableView reloadData];
 }
 
+#pragma mark - UIScrollViewDelegate methods
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	CGFloat currentOffsetY = scrollView.contentOffset.y;
+	CGFloat currentDragDirection = detectDragDirection(currentOffsetY, self.previousOffsetY);
+	
+	if (currentDragDirection != self.previousDragDirection) {
+		self.cumulativeY = 0.0;
+	} else {
+		self.cumulativeY += (currentOffsetY - self.previousOffsetY);
+	
+	if (fabs(self.cumulativeY) > self.headerViewHeightStartingConstraintValue) {
+		if (currentDragDirection == THVDragDirectionDown && self.cumulativeY < 0) {
+			self.headerViewConstraint.constant = self.headerViewHeightStartingConstraintValue;
+		} else if (currentDragDirection == THVDragDirectionUp && self.cumulativeY > 0 && currentOffsetY > 0) {
+			self.headerViewConstraint.constant = 0;
+		}
+	}
+	
+	self.previousOffsetY = currentOffsetY;
+	self.previousDragDirection = currentDragDirection;
+}
 
 #pragma mark - lazy properties initializers
 - (NSFetchedResultsController *)fetchedResultController {
@@ -171,6 +216,7 @@ NSString *const THVLabelResume = @"Resume";
 	return _fetchPredicate;
 }
 
+#pragma mark - iboutlets methods
 - (IBAction)startPauseDownload:(id)sender {
 	if ([[DownloadCoordinator sharedInstance] isDownloadPaused]) {
 		
