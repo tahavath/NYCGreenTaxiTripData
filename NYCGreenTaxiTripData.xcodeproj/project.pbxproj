@@ -22,8 +22,6 @@
 		896541E81CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541E71CE5B61A0064F040 /* NYCGreenTaxiTripDataUITests.m */; };
 		896541F11CE5BE020064F040 /* ModelCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */; };
 		896541F51CE5E7B40064F040 /* TripsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541F41CE5E7B40064F040 /* TripsListViewController.m */; };
-		896542001CE5F7820064F040 /* TripsListTableHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896541FE1CE5F7820064F040 /* TripsListTableHeaderViewController.m */; };
-		896542011CE5F7820064F040 /* TripsListTableHeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 896541FF1CE5F7820064F040 /* TripsListTableHeaderViewController.xib */; };
 		896542061CE5F9EC0064F040 /* TripsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542041CE5F9EC0064F040 /* TripsListTableViewCell.m */; };
 		896542071CE5F9EC0064F040 /* TripsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 896542051CE5F9EC0064F040 /* TripsListTableViewCell.xib */; };
 		896542281CE60E3F0064F040 /* TripData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542211CE60E3F0064F040 /* TripData+CoreDataProperties.m */; };
@@ -85,9 +83,6 @@
 		896541F01CE5BE020064F040 /* ModelCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelCoordinatorTests.m; sourceTree = "<group>"; };
 		896541F31CE5E7B40064F040 /* TripsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListViewController.h; sourceTree = "<group>"; };
 		896541F41CE5E7B40064F040 /* TripsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListViewController.m; sourceTree = "<group>"; };
-		896541FD1CE5F7820064F040 /* TripsListTableHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListTableHeaderViewController.h; sourceTree = "<group>"; };
-		896541FE1CE5F7820064F040 /* TripsListTableHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListTableHeaderViewController.m; sourceTree = "<group>"; };
-		896541FF1CE5F7820064F040 /* TripsListTableHeaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripsListTableHeaderViewController.xib; sourceTree = "<group>"; };
 		896542031CE5F9EC0064F040 /* TripsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsListTableViewCell.h; sourceTree = "<group>"; };
 		896542041CE5F9EC0064F040 /* TripsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsListTableViewCell.m; sourceTree = "<group>"; };
 		896542051CE5F9EC0064F040 /* TripsListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripsListTableViewCell.xib; sourceTree = "<group>"; };
@@ -279,9 +274,6 @@
 			children = (
 				896541F31CE5E7B40064F040 /* TripsListViewController.h */,
 				896541F41CE5E7B40064F040 /* TripsListViewController.m */,
-				896541FD1CE5F7820064F040 /* TripsListTableHeaderViewController.h */,
-				896541FE1CE5F7820064F040 /* TripsListTableHeaderViewController.m */,
-				896541FF1CE5F7820064F040 /* TripsListTableHeaderViewController.xib */,
 				896542031CE5F9EC0064F040 /* TripsListTableViewCell.h */,
 				896542041CE5F9EC0064F040 /* TripsListTableViewCell.m */,
 				896542051CE5F9EC0064F040 /* TripsListTableViewCell.xib */,
@@ -425,7 +417,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				896541B11CE4C61D0064F040 /* LaunchScreen.storyboard in Resources */,
-				896542011CE5F7820064F040 /* TripsListTableHeaderViewController.xib in Resources */,
 				896542071CE5F9EC0064F040 /* TripsListTableViewCell.xib in Resources */,
 				896541AE1CE4C61D0064F040 /* Assets.xcassets in Resources */,
 				896541A91CE4C61D0064F040 /* Main.storyboard in Resources */,
@@ -581,7 +572,6 @@
 				896542061CE5F9EC0064F040 /* TripsListTableViewCell.m in Sources */,
 				896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */,
 				89E0B1FA1CE9FEA300F46344 /* Commons.m in Sources */,
-				896542001CE5F7820064F040 /* TripsListTableHeaderViewController.m in Sources */,
 				8965422B1CE60E3F0064F040 /* ParentEntity.m in Sources */,
 				896541AC1CE4C61D0064F040 /* NYCGreenTaxiTripData.xcdatamodeld in Sources */,
 				896541A31CE4C61D0064F040 /* AppDelegate.m in Sources */,

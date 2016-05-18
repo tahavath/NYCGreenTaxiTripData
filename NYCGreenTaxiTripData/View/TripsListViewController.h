@@ -14,5 +14,12 @@ extern NSString *const THVTripCellIdentifier;
 @interface TripsListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
+@property (weak, nonatomic) IBOutlet UIProgressView *downloadProgressView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *downloadActivityIndicator;
+@property (weak, nonatomic) IBOutlet UIButton *startPauseDownloadButton;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerViewConstraint;
+
+- (IBAction)startPauseDownload:(id)sender;
 
 @end

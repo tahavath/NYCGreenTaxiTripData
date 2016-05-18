@@ -7,13 +7,15 @@
 //
 
 #import "TripsListViewController.h"
-#import "TripsListTableHeaderViewController.h"
 #import "TripsListTableViewCell.h"
 #import "ModelCoordinator.h"
+#import "DownloadCoordinator.h"
 #import "TripData.h"
 
 NSString *const THVTripCellIdentifier = @"TripCell";
 NSString *const THVSectionSortKeyPath = @"month";
+NSString *const THVLabelPause = @"Pause";
+NSString *const THVLabelResume = @"Resume";
 
 @interface TripsListViewController ()
 
@@ -23,27 +25,11 @@ NSString *const THVSectionSortKeyPath = @"month";
 @property (nonatomic) NSSortDescriptor *sortDescriptor;
 @property (nonatomic) NSPredicate *fetchPredicate;
 
-@property (nonatomic) TripsListTableHeaderViewController *tableHeaderVC;
-
 @property (nonatomic) BOOL shouldHideStatusBar;
 
 @end
 
 @implementation TripsListViewController
-
-- (void)viewWillLayoutSubviews {
-	[super viewWillLayoutSubviews];
-	
-	[self.tableHeaderVC.view setNeedsLayout];
-	[self.tableHeaderVC.view layoutIfNeeded];
-	
-	CGFloat tableViewHeaderHeight = [self.tableHeaderVC.view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-	
-	CGRect tableViewHeaderFrame = self.tableHeaderVC.view.frame;
-	tableViewHeaderFrame.size.height = tableViewHeaderHeight;
-	self.tableHeaderVC.view.frame = tableViewHeaderFrame;
-	self.tripsTableView.tableHeaderView = self.tableHeaderVC.view;
-}
 
 - (void)viewDidLoad {
 	self.title = @"Trips";
@@ -54,13 +40,11 @@ NSString *const THVSectionSortKeyPath = @"month";
 		[self.navigationController.barHideOnTapGestureRecognizer addTarget:self action:@selector(swipeOrTapToShowHideStatusBar:)];
 	}
 	
-	self.tableHeaderVC = [TripsListTableHeaderViewController new];
-	[self addChildViewController:self.tableHeaderVC];
-	
 	[self.tripsTableView registerNib:[UINib nibWithNibName:@"TripsListTableViewCell" bundle:nil] forCellReuseIdentifier:THVTripCellIdentifier];
 }
 
 - (void)swipeOrTapToShowHideStatusBar:(UISwipeGestureRecognizer *)recognizer {
+	NSLog(@"swipeOrTapToShowHideStatusBar");
 	self.shouldHideStatusBar = self.navigationController.navigationBar.frame.origin.y < 0;
 	[UIView animateWithDuration:0.18 animations:^{
 		[self setNeedsStatusBarAppearanceUpdate];
@@ -185,6 +169,24 @@ NSString *const THVSectionSortKeyPath = @"month";
 	}
 	
 	return _fetchPredicate;
+}
+
+- (IBAction)startPauseDownload:(id)sender {
+	if ([[DownloadCoordinator sharedInstance] isDownloadPaused]) {
+		
+		[[DownloadCoordinator sharedInstance] downloadTrips];
+		[self.startPauseDownloadButton setTitle:THVLabelPause forState:UIControlStateNormal];
+		self.downloadActivityIndicator.hidden = NO;
+		[self.downloadActivityIndicator startAnimating];
+		
+	} else {
+		
+		[[DownloadCoordinator sharedInstance] pauseDownload];
+		[self.startPauseDownloadButton setTitle:THVLabelResume forState:UIControlStateNormal];
+		self.downloadActivityIndicator.hidden = YES;
+		[self.downloadActivityIndicator stopAnimating];
+		
+	}
 }
 
 @end
