@@ -15,7 +15,10 @@ extern NSString *const THVTripCellIdentifier;
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
+@property (weak, nonatomic) IBOutlet UIView *placeholderView;
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *downloadProgressView;
+@property (weak, nonatomic) IBOutlet UILabel *downloadProgressLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *downloadActivityIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *startPauseDownloadButton;
 

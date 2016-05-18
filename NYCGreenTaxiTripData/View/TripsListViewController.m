@@ -16,6 +16,7 @@ NSString *const THVTripCellIdentifier = @"TripCell";
 NSString *const THVSectionSortKeyPath = @"month";
 NSString *const THVLabelPause = @"Pause";
 NSString *const THVLabelResume = @"Resume";
+NSString *const THVLabelDownloadData= @"Download data";
 
 typedef enum {
 	THVDragDirectionDown	= -1,
@@ -43,6 +44,8 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 @property (nonatomic) CGFloat previousOffsetY;
 @property (nonatomic) CGFloat cumulativeY;
 
+@property (nonatomic) NSProgress *downloadProgress;
+
 @end
 
 @implementation TripsListViewController
@@ -59,6 +62,28 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	self.cumulativeY = 0.0;
 	
 	self.downloadActivityIndicator.hidden = YES;
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(progressChanged) name:THVNotificationNameTripsOffsetChanged object:nil];
+	
+	self.placeholderLabel.text = THVLabelNoTripsToShow;
+	
+	if (![Commons readValueFromUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey]) {
+		self.placeholderView.hidden = NO;
+		self.tripsTableView.hidden = YES;
+	} else {
+		self.placeholderView.hidden = YES;
+		self.tripsTableView.hidden = NO;
+	}
+	
+	if (![Commons readValueFromUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey]) {
+		[self.startPauseDownloadButton setTitle:THVLabelDownloadData forState:UIControlStateNormal];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareDownloadProgress) name:THVNotificationNameOverallTripsChecked object:nil];
+		[[DownloadCoordinator sharedInstance] checkOverallTripsCount];
+		self.downloadProgressLabel.hidden = YES;
+	} else {
+		[self.startPauseDownloadButton setTitle:THVLabelResume forState:UIControlStateNormal];
+		[self prepareDownloadProgress];
+	}
 	
 }
 
@@ -141,8 +166,16 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	if (fabs(self.cumulativeY) > self.headerViewHeightStartingConstraintValue) {
 		if (currentDragDirection == THVDragDirectionDown && self.cumulativeY < 0) {
 			self.headerViewConstraint.constant = self.headerViewHeightStartingConstraintValue;
+			self.navigationItem.rightBarButtonItem = nil;
 		} else if (currentDragDirection == THVDragDirectionUp && self.cumulativeY > 0 && currentOffsetY > 0) {
 			self.headerViewConstraint.constant = 0;
+			if (![[DownloadCoordinator sharedInstance] isDownloadPaused] && !self.navigationItem.rightBarButtonItem) {
+				UIActivityIndicatorView *navBarIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+				navBarIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+				[navBarIndicator startAnimating];
+				UIBarButtonItem *rightNavBarItem = [[UIBarButtonItem alloc] initWithCustomView:navBarIndicator];
+				self.navigationItem.rightBarButtonItem = rightNavBarItem;
+			}
 		}
 	}
 	
@@ -217,6 +250,29 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 		[self.downloadActivityIndicator stopAnimating];
 		
 	}
+}
+
+#pragma mark - progress handling
+- (void)prepareDownloadProgress {
+	NSNumber *overallTripsCount = [Commons readValueFromUserDefaultsForKey:THVUserDefaultsOverallTripsCountKey];
+	NSNumber *currentOffset = [Commons readValueFromUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey];
+	
+	self.downloadProgress = [NSProgress progressWithTotalUnitCount:[overallTripsCount integerValue]];
+	[self.downloadProgress setCompletedUnitCount:[currentOffset integerValue]];
+	
+	self.downloadProgressLabel.hidden = NO;
+	self.downloadProgressLabel.text = self.downloadProgress.localizedAdditionalDescription;
+	
+	[self.downloadProgressView setObservedProgress:self.downloadProgress];
+}
+
+- (void)progressChanged {
+	NSNumber *currentOffset = [Commons readValueFromUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey];
+	[self.downloadProgress setCompletedUnitCount:[currentOffset integerValue]];
+	self.downloadProgressLabel.text = self.downloadProgress.localizedAdditionalDescription;
+	
+	self.placeholderView.hidden = YES;
+	self.tripsTableView.hidden = NO;
 }
 
 @end

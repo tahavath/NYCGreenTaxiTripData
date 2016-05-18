@@ -10,6 +10,16 @@
 #import "ModelCoordinator.h"
 #import "TripData.h"
 
+
+#pragma mark - inner class
+@interface OverallTripsCount : NSObject
+@property (nonatomic) NSUInteger count;
+@end
+
+@implementation OverallTripsCount
+@end
+
+#pragma mark - DownloadCoordinator class implementation
 @interface DownloadCoordinator ()
 
 @property (nonatomic) id<RKManagedObjectCaching> objectCache;
@@ -30,6 +40,32 @@
 	});
 	
 	return downloadCoordinatorSharedInstance;
+}
+
+- (void)checkOverallTripsCount {
+	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:THVCheckOverallTripsCountURLString]];
+	
+	RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[OverallTripsCount class]];
+	[mapping addAttributeMappingsFromDictionary:@{@"count" : @"count"}];
+	
+	RKResponseDescriptor *descriptor = [RKResponseDescriptor
+										responseDescriptorWithMapping:mapping
+										method:RKRequestMethodGET
+										pathPattern:nil
+										keyPath:nil
+										statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+	
+	RKObjectRequestOperation *op = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[descriptor]];
+	
+	[op setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+		OverallTripsCount *tripsCount = [mappingResult firstObject];
+		[Commons writeValue:[NSNumber numberWithUnsignedInteger:tripsCount.count] toUserDefaultsForKey:THVUserDefaultsOverallTripsCountKey];
+		[[NSNotificationCenter defaultCenter] postNotificationName:THVNotificationNameOverallTripsChecked object:nil];
+	} failure:^(RKObjectRequestOperation *operation, NSError *error) {
+		NSLog(@"Could not retrieve overall trips count!");
+	}];
+	
+	[[NSOperationQueue currentQueue] addOperation:op];
 }
 
 - (void)downloadTrips {
@@ -53,6 +89,7 @@
 	[op setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
 		NSUInteger currentOffset = offset + THVDefaultDownloadStep;
 		[Commons writeValue:[NSNumber numberWithUnsignedInteger:currentOffset] toUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey];
+		[[NSNotificationCenter defaultCenter] postNotificationName:THVNotificationNameTripsOffsetChanged object:nil];
 		NSLog(@"Trips downloaded\n\toffset = %lu", offset);
 		
 		for (TripData *trip in mappingResult.array) {

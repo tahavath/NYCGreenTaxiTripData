@@ -10,6 +10,7 @@ NSString *const THVUserDefaultsDownloadOffsetKey = @"downloadOffset";
 NSString *const THVUserDefaultsOverallTripsCountKey = @"overallTripsCount";
 
 NSUInteger const THVDefaultDownloadStep = 100;
+NSString *const THVCheckOverallTripsCountURLString = @"https://data.cityofnewyork.us/resource/h4pe-ymjc.json?$select=count(*)";
 NSString *const THVDownloadURLStringWithFormat = @"https://data.cityofnewyork.us/resource/h4pe-ymjc.json?$select=:*,*&$limit=%lu&$offset=%lu";
 
 double const THVNewYorkLatitude = 40.7128;
@@ -19,6 +20,11 @@ NSString *const THVDateFormat = @"yyyy-MM-dd HH:mm:ss";
 NSString *const THVMonthFormatForStoringAndSorting = @"yyyyMM";
 NSString *const THVMonthFormatForSectionHeaders = @"MMMM yyyy";
 NSString *const THVMonthFormatForSectionIndexTitles = @"MMMyy";
+
+NSString *const THVNotificationNameOverallTripsChecked = @"THVNotificationNameOverallTripsChecked";
+NSString *const THVNotificationNameTripsOffsetChanged = @"THVNotificationNameTripsOffsetChanged";
+
+NSString *const THVLabelNoTripsToShow = @"There are no trips to show.\n\nPlease download data first.";
 
 
 @interface Commons ()

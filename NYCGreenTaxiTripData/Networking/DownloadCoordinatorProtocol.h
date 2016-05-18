@@ -13,6 +13,8 @@
 
 + (id<DownloadCoordinatorProtocol>)sharedInstance;
 
+- (void)checkOverallTripsCount;
+
 - (void)downloadTrips;
 
 - (BOOL)isDownloadPaused;

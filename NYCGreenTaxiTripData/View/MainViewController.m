@@ -20,6 +20,20 @@ double const THVStartingRegionDistance = 2000.0;
 	CLLocationCoordinate2D startingCoord = CLLocationCoordinate2DMake(THVNewYorkLatitude, THVNewYorkLongitude);
 	MKCoordinateRegion startingRegion = MKCoordinateRegionMakeWithDistance(startingCoord, THVStartingRegionDistance, THVStartingRegionDistance);
 	
+	if (![Commons readValueFromUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey]) {
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:THVLabelNoTripsToShow preferredStyle:UIAlertControllerStyleAlert];
+		UIAlertAction *defaultAction = [UIAlertAction
+										actionWithTitle:@"OK"
+										style:UIAlertActionStyleDefault
+										handler:^(UIAlertAction *action) {
+											[self performSegueWithIdentifier:@"showTripsTable" sender:self];
+										}];
+		
+		[alert addAction:defaultAction];
+		
+		[self presentViewController:alert animated:YES completion:nil];
+	}
+	
 	[self.mapView setRegion:startingRegion];
 }
 

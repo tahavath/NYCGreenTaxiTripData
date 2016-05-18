@@ -22,7 +22,7 @@
                                 <items>
                                     <barButtonItem title="Trips" id="Qt3-8K-JuU" userLabel="trips button">
                                         <connections>
-                                            <segue destination="FlJ-qM-tem" kind="show" id="cVi-Ca-REd"/>
+                                            <segue destination="FlJ-qM-tem" kind="show" identifier="showTripsTable" id="cVi-Ca-REd"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -68,8 +68,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7x8-zB-8K5" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <subviews>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ulv-8M-QUP">
-                                        <rect key="frame" x="225" y="21" width="150" height="2"/>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Ulv-8M-QUP">
+                                        <rect key="frame" x="225" y="11" width="150" height="2"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="xRJ-hx-mC4"/>
                                         </constraints>
@@ -88,16 +88,23 @@
                                             <action selector="startPauseDownload:" destination="FlJ-qM-tem" eventType="touchUpInside" id="Bsc-pS-6yn"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTS-44-NM1" userLabel="download progress label">
+                                        <rect key="frame" x="279" y="16" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="73T-66-B2w"/>
                                     <constraint firstItem="7Tw-vi-V9T" firstAttribute="centerY" secondItem="7x8-zB-8K5" secondAttribute="centerY" id="BLp-G1-HZi"/>
-                                    <constraint firstItem="Ulv-8M-QUP" firstAttribute="centerY" secondItem="7x8-zB-8K5" secondAttribute="centerY" id="J4q-Yw-kl1"/>
+                                    <constraint firstAttribute="bottom" secondItem="bTS-44-NM1" secondAttribute="bottom" constant="7" id="KlR-Mv-WBc"/>
                                     <constraint firstAttribute="trailing" secondItem="7Tw-vi-V9T" secondAttribute="trailing" constant="8" id="M73-BB-aOQ"/>
                                     <constraint firstItem="TPk-AK-MoS" firstAttribute="centerY" secondItem="7x8-zB-8K5" secondAttribute="centerY" id="Mau-jC-aAc"/>
-                                    <constraint firstItem="Ulv-8M-QUP" firstAttribute="centerX" secondItem="7x8-zB-8K5" secondAttribute="centerX" id="e34-07-7L2"/>
+                                    <constraint firstItem="bTS-44-NM1" firstAttribute="centerX" secondItem="7x8-zB-8K5" secondAttribute="centerX" id="cgu-P6-BYC"/>
                                     <constraint firstItem="TPk-AK-MoS" firstAttribute="leading" secondItem="7x8-zB-8K5" secondAttribute="leading" constant="8" id="oco-3Q-6UX"/>
+                                    <constraint firstItem="Ulv-8M-QUP" firstAttribute="top" secondItem="7x8-zB-8K5" secondAttribute="top" constant="11" id="pcb-K7-IiM"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YKc-O2-gof">
@@ -108,15 +115,38 @@
                                     <outlet property="delegate" destination="FlJ-qM-tem" id="sVT-GM-wWn"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1z-hJ-vPu" userLabel="placeholder view">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eL8-Pg-ZRd">
+                                        <rect key="frame" x="197" y="237" width="207" height="82"/>
+                                        <string key="text">There are no trips to view. 
+Please download data first. </string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="eL8-Pg-ZRd" firstAttribute="centerX" secondItem="H1z-hJ-vPu" secondAttribute="centerX" id="8FV-Gr-d5D"/>
+                                    <constraint firstItem="eL8-Pg-ZRd" firstAttribute="centerY" secondItem="H1z-hJ-vPu" secondAttribute="centerY" id="NEN-PI-Aux"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7x8-zB-8K5" firstAttribute="leading" secondItem="A6y-dQ-xEp" secondAttribute="leading" id="4FC-X8-ha6"/>
+                            <constraint firstAttribute="trailing" secondItem="H1z-hJ-vPu" secondAttribute="trailing" id="HIp-Wd-wYS"/>
+                            <constraint firstItem="H1z-hJ-vPu" firstAttribute="top" secondItem="7x8-zB-8K5" secondAttribute="bottom" id="Jph-xu-jBt"/>
                             <constraint firstAttribute="trailing" secondItem="7x8-zB-8K5" secondAttribute="trailing" id="Vlg-qk-d2S"/>
                             <constraint firstItem="7x8-zB-8K5" firstAttribute="top" secondItem="MPl-Ze-XAq" secondAttribute="bottom" id="W3g-mA-wXy"/>
                             <constraint firstItem="WU4-QL-QmA" firstAttribute="top" secondItem="YKc-O2-gof" secondAttribute="bottom" id="dZt-jJ-O3P"/>
+                            <constraint firstItem="H1z-hJ-vPu" firstAttribute="leading" secondItem="A6y-dQ-xEp" secondAttribute="leading" id="gBS-PH-RJg"/>
+                            <constraint firstItem="Ulv-8M-QUP" firstAttribute="centerX" secondItem="A6y-dQ-xEp" secondAttribute="centerX" id="hBO-ZZ-Y8r"/>
                             <constraint firstItem="YKc-O2-gof" firstAttribute="leading" secondItem="A6y-dQ-xEp" secondAttribute="leading" id="oOd-QY-Tt4"/>
                             <constraint firstAttribute="trailing" secondItem="YKc-O2-gof" secondAttribute="trailing" id="wCN-w6-oha"/>
+                            <constraint firstItem="WU4-QL-QmA" firstAttribute="top" secondItem="H1z-hJ-vPu" secondAttribute="bottom" id="wWf-5o-TcT"/>
                             <constraint firstItem="YKc-O2-gof" firstAttribute="top" secondItem="7x8-zB-8K5" secondAttribute="bottom" id="z53-hB-hF7"/>
                         </constraints>
                     </view>
@@ -124,16 +154,19 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="downloadActivityIndicator" destination="TPk-AK-MoS" id="WI5-Mb-f55"/>
+                        <outlet property="downloadProgressLabel" destination="bTS-44-NM1" id="HKW-c0-egX"/>
                         <outlet property="downloadProgressView" destination="Ulv-8M-QUP" id="yud-T0-5xI"/>
                         <outlet property="headerView" destination="7x8-zB-8K5" id="XL6-AH-iXF"/>
                         <outlet property="headerViewConstraint" destination="73T-66-B2w" id="Sbx-KO-M7M"/>
+                        <outlet property="placeholderLabel" destination="eL8-Pg-ZRd" id="S5j-AI-WPx"/>
+                        <outlet property="placeholderView" destination="H1z-hJ-vPu" id="bwB-ge-cNG"/>
                         <outlet property="startPauseDownloadButton" destination="7Tw-vi-V9T" id="LxE-Xd-lau"/>
                         <outlet property="tripsTableView" destination="YKc-O2-gof" id="M2C-M0-oi6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7y-hU-koX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1748" y="462"/>
+            <point key="canvasLocation" x="1733" y="464"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3E5-PS-PND">

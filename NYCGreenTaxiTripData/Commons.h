@@ -10,6 +10,7 @@ extern NSString *const THVUserDefaultsDownloadOffsetKey;
 extern NSString *const THVUserDefaultsOverallTripsCountKey;
 
 extern NSUInteger const THVDefaultDownloadStep;
+extern NSString *const THVCheckOverallTripsCountURLString;
 extern NSString *const THVDownloadURLStringWithFormat;
 
 extern double const THVNewYorkLatitude;
@@ -19,6 +20,11 @@ extern NSString *const THVDateFormat;
 extern NSString *const THVMonthFormatForStoringAndSorting;
 extern NSString *const THVMonthFormatForSectionHeaders;
 extern NSString *const THVMonthFormatForSectionIndexTitles;
+
+extern NSString *const THVNotificationNameOverallTripsChecked;
+extern NSString *const THVNotificationNameTripsOffsetChanged;
+
+extern NSString *const THVLabelNoTripsToShow;
 
 
 @interface Commons : NSObject
