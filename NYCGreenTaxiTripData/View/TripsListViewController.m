@@ -153,6 +153,7 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 		self.cumulativeY = 0.0;
 	} else {
 		self.cumulativeY += (currentOffsetY - self.previousOffsetY);
+	}
 	
 	if (fabs(self.cumulativeY) > self.headerViewHeightStartingConstraintValue) {
 		if (currentDragDirection == THVDragDirectionDown && self.cumulativeY < 0) {
