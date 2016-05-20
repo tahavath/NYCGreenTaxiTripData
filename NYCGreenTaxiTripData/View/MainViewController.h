@@ -11,7 +11,7 @@
 
 extern double const THVStartingRegionDistance;
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController <NSFetchedResultsControllerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tripsBarButton;

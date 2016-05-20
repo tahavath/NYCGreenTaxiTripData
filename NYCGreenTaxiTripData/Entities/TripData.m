@@ -43,4 +43,13 @@
 	return @"pickupDateTime";
 }
 
+#pragma mark - MapKit operations helper methods
+-(CLLocationCoordinate2D)pickupCoordinate {
+	return CLLocationCoordinate2DMake([self.pickupLatitude doubleValue], [self.pickupLongitude doubleValue]);
+}
+
+-(CLLocationCoordinate2D)dropoffCoordinate {
+	return CLLocationCoordinate2DMake([self.dropoffLatitude doubleValue], [self.dropoffLongitude doubleValue]);
+}
+
 @end

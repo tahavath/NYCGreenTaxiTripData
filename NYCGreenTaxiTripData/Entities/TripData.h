@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "ParentEntity.h"
+#import <MapKit/MapKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TripData : ParentEntity
+
+#pragma mark - MapKit operations helper methods
+-(CLLocationCoordinate2D)pickupCoordinate;
+-(CLLocationCoordinate2D)dropoffCoordinate;
 
 @end
 

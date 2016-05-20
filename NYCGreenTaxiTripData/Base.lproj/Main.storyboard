@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zRm-Hh-0OR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zRm-Hh-0OR">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -29,6 +29,9 @@
                             </toolbar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VOd-Rn-Cum">
                                 <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="dMD-OW-pRz"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -53,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="1027" y="464"/>
         </scene>
-        <!--Trips List View Controller-->
+        <!--Trips-->
         <scene sceneID="JWH-KY-FpS">
             <objects>
-                <viewController id="FlJ-qM-tem" customClass="TripsListViewController" sceneMemberID="viewController">
+                <viewController title="Trips" id="FlJ-qM-tem" customClass="TripsListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MPl-Ze-XAq"/>
                         <viewControllerLayoutGuide type="bottom" id="WU4-QL-QmA"/>
@@ -107,14 +110,6 @@
                                     <constraint firstItem="Ulv-8M-QUP" firstAttribute="top" secondItem="7x8-zB-8K5" secondAttribute="top" constant="11" id="pcb-K7-IiM"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YKc-O2-gof">
-                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="FlJ-qM-tem" id="BTo-O9-mRi"/>
-                                    <outlet property="delegate" destination="FlJ-qM-tem" id="sVT-GM-wWn"/>
-                                </connections>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1z-hJ-vPu" userLabel="placeholder view">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <subviews>
@@ -133,6 +128,14 @@ Please download data first. </string>
                                     <constraint firstItem="eL8-Pg-ZRd" firstAttribute="centerY" secondItem="H1z-hJ-vPu" secondAttribute="centerY" id="NEN-PI-Aux"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YKc-O2-gof">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="FlJ-qM-tem" id="BTo-O9-mRi"/>
+                                    <outlet property="delegate" destination="FlJ-qM-tem" id="sVT-GM-wWn"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -162,11 +165,30 @@ Please download data first. </string>
                         <outlet property="placeholderView" destination="H1z-hJ-vPu" id="bwB-ge-cNG"/>
                         <outlet property="startPauseDownloadButton" destination="7Tw-vi-V9T" id="LxE-Xd-lau"/>
                         <outlet property="tripsTableView" destination="YKc-O2-gof" id="M2C-M0-oi6"/>
+                        <segue destination="sRV-TJ-bZh" kind="show" identifier="ShowTripDetails" id="Ebu-D7-ix0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7y-hU-koX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1733" y="464"/>
+        </scene>
+        <!--Trip Detail-->
+        <scene sceneID="Mac-cJ-yPn">
+            <objects>
+                <viewController title="Trip Detail" id="sRV-TJ-bZh" customClass="TripDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cMJ-pr-NE3"/>
+                        <viewControllerLayoutGuide type="bottom" id="PKg-Bx-wbe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rVo-bH-Ojm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o63-Cm-pAT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2423" y="464"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3E5-PS-PND">

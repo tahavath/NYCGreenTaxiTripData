@@ -11,12 +11,15 @@
 #import "ModelCoordinator.h"
 #import "DownloadCoordinator.h"
 #import "TripData.h"
+#import "TripDetailsViewController.h"
 
 NSString *const THVTripCellIdentifier = @"TripCell";
 NSString *const THVSectionSortKeyPath = @"month";
 NSString *const THVLabelPause = @"Pause";
 NSString *const THVLabelResume = @"Resume";
 NSString *const THVLabelDownloadData= @"Download data";
+
+NSString *const THVTripDetailsSegueName = @"ShowTripDetails";
 
 typedef enum {
 	THVDragDirectionDown	= -1,
@@ -51,8 +54,6 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 @implementation TripsListViewController
 
 - (void)viewDidLoad {
-	self.title = @"Trips";
-	
 	self.headerViewHeightStartingConstraintValue = self.headerViewConstraint.constant;
 	
 	[self.tripsTableView registerNib:[UINib nibWithNibName:@"TripsListTableViewCell" bundle:nil] forCellReuseIdentifier:THVTripCellIdentifier];
@@ -80,8 +81,13 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareDownloadProgress) name:THVNotificationNameOverallTripsChecked object:nil];
 		[[DownloadCoordinator sharedInstance] checkOverallTripsCount];
 		self.downloadProgressLabel.hidden = YES;
-	} else {
+	} else if ([[DownloadCoordinator sharedInstance] isDownloadPaused]){
 		[self.startPauseDownloadButton setTitle:THVLabelResume forState:UIControlStateNormal];
+		[self prepareDownloadProgress];
+	} else {
+		[self.startPauseDownloadButton setTitle:THVLabelPause forState:UIControlStateNormal];
+		self.downloadActivityIndicator.hidden = NO;
+		[self.downloadActivityIndicator startAnimating];
 		[self prepareDownloadProgress];
 	}
 	
@@ -134,7 +140,25 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 
 #pragma mark - UITableViewDelegate protocol
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	TripData *tripData = [self.fetchedResultController objectAtIndexPath:indexPath];
+	
+	[self performSegueWithIdentifier:THVTripDetailsSegueName sender:tripData];
+	
 	NSLog(@"tapped row at: %@", indexPath);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:THVTripDetailsSegueName]){
+		TripData *tripData = (TripData *)sender;
+		
+		TripDetailsViewController *vc = segue.destinationViewController;
+		vc.pickupLatitude = [tripData.pickupLatitude doubleValue];
+		vc.pickupLongitude = [tripData.pickupLongitude doubleValue];
+		vc.dropoffLatitude = [tripData.dropoffLatitude doubleValue];
+		vc.dropoffLongitude = [tripData.dropoffLongitude doubleValue];
+		
+		vc.tripDistance = [tripData.tripDistance floatValue];
+	}
 }
 
 #pragma mark - table view helper methods
@@ -197,7 +221,7 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 #pragma mark - lazy properties initializers
 - (NSFetchedResultsController *)fetchedResultController {
 	if (!_fetchedResultController) {
-		_fetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:[[ModelCoordinator sharedInstance] mainQueueContext] sectionNameKeyPath:THVSectionSortKeyPath cacheName:@"MonthsCache"];
+		_fetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:[[ModelCoordinator sharedInstance] mainQueueContext] sectionNameKeyPath:THVSectionSortKeyPath cacheName:nil];
 		[_fetchedResultController setDelegate:self];
 		
 		NSError *fetchError = nil;
