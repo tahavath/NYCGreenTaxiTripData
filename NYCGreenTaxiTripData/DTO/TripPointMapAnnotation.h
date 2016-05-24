@@ -18,6 +18,8 @@ typedef enum {
 
 - (id)initWithTripPointType:(THVTripPointType)type tripId:(NSString *)tripId coordinate:(CLLocationCoordinate2D)coordinate tripPointDateTime:(NSDate *)tripPointDateTime;
 
+@property (nonatomic) NSString *tripId;
 @property (nonatomic) THVTripPointType tripPointType;
+@property (nonatomic) TripPointMapAnnotation *relatedTripPoint;
 
 @end

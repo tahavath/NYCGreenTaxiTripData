@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "TripData.h"
 
 extern double const THVStartingRegionDistance;
 
@@ -16,5 +17,7 @@ extern double const THVStartingRegionDistance;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tripsBarButton;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (nonatomic) TripData *selectedTripEntity;
 
 @end

@@ -10,8 +10,8 @@
 #import "TripsListTableViewCell.h"
 #import "ModelCoordinator.h"
 #import "DownloadCoordinator.h"
-#import "TripData.h"
 #import "TripDetailsViewController.h"
+#import "MainViewController.h"
 
 NSString *const THVTripCellIdentifier = @"TripCell";
 NSString *const THVSectionSortKeyPath = @"month";
@@ -54,6 +54,7 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 @implementation TripsListViewController
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
 	self.headerViewHeightStartingConstraintValue = self.headerViewConstraint.constant;
 	
 	[self.tripsTableView registerNib:[UINib nibWithNibName:@"TripsListTableViewCell" bundle:nil] forCellReuseIdentifier:THVTripCellIdentifier];
@@ -91,6 +92,32 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 		[self prepareDownloadProgress];
 	}
 	
+	if (self.selectedTrip) {
+		[self.tripsTableView selectRowAtIndexPath:[self.fetchedResultController indexPathForObject:self.selectedTrip] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+	}
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+	if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+		MainViewController *mainVC = self.navigationController.viewControllers[0];
+		mainVC.selectedTripEntity = self.selectedTrip;
+	}
+	
+	[super viewWillDisappear:animated];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:THVTripDetailsSegueName]){
+		TripData *tripData = (TripData *)sender;
+		
+		TripDetailsViewController *vc = segue.destinationViewController;
+		vc.pickupLatitude = [tripData.pickupLatitude doubleValue];
+		vc.pickupLongitude = [tripData.pickupLongitude doubleValue];
+		vc.dropoffLatitude = [tripData.dropoffLatitude doubleValue];
+		vc.dropoffLongitude = [tripData.dropoffLongitude doubleValue];
+		
+		vc.tripDistance = [tripData.tripDistance floatValue];
+	}
 }
 
 #pragma mark - UITableViewDataSource protocol
@@ -147,18 +174,8 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	NSLog(@"tapped row at: %@", indexPath);
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:THVTripDetailsSegueName]){
-		TripData *tripData = (TripData *)sender;
-		
-		TripDetailsViewController *vc = segue.destinationViewController;
-		vc.pickupLatitude = [tripData.pickupLatitude doubleValue];
-		vc.pickupLongitude = [tripData.pickupLongitude doubleValue];
-		vc.dropoffLatitude = [tripData.dropoffLatitude doubleValue];
-		vc.dropoffLongitude = [tripData.dropoffLongitude doubleValue];
-		
-		vc.tripDistance = [tripData.tripDistance floatValue];
-	}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	self.selectedTrip = [self.fetchedResultController objectAtIndexPath:indexPath];
 }
 
 #pragma mark - table view helper methods
@@ -167,8 +184,6 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	
 	cell.textLabel.text = [NSString stringWithFormat:@"Pickup time: %@", [[[Commons sharedInstance] dateFormatter] stringFromDate:cellEntity.pickupDateTime]];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"Total amount: %.02f", [cellEntity.totalAmount floatValue]];
-	
-	cell.backgroundColor = indexPath.row % 2 ? [UIColor grayColor] : [UIColor lightGrayColor];
 }
 
 - (void)showTableHeaderView {

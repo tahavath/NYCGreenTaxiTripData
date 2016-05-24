@@ -8,10 +8,16 @@
 
 #import "MainViewController.h"
 #import "ModelCoordinator.h"
-#import "TripData.h"
 #import "TripPointMapAnnotation.h"
+#import "TripsListViewController.h"
 
 double const THVStartingRegionDistance = 2000.0;
+double const THVPinScaleWhenSelected = 1.1;
+double const THVPinScaleNormal = 1.0;
+
+NSString *const THVShowTripsTableSegueName = @"showTripsTable";
+
+
 
 @interface MainViewController() {
 	MKCoordinateRegion _currentRegion;
@@ -26,14 +32,15 @@ double const THVStartingRegionDistance = 2000.0;
 @property (nonatomic) NSFetchedResultsController *fetchedResultController;
 @property (nonatomic) NSFetchRequest *fetchRequest;
 
-@property (nonatomic) NSMutableArray<TripPointMapAnnotation *> *tripsPointPinsArray;
+@property (nonatomic) MKDirections *directions;
 
 @end
 
 @implementation MainViewController
 
 - (void)viewDidLoad {
-	[self setCurrentRegionDataFromRegion:self.mapView.region];
+	[super viewDidLoad];
+	NSLog(@"viewDidLoad");
 	
 	if (![Commons readValueFromUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey]) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:THVLabelNoTripsToShow preferredStyle:UIAlertControllerStyleAlert];
@@ -41,7 +48,7 @@ double const THVStartingRegionDistance = 2000.0;
 										actionWithTitle:@"OK"
 										style:UIAlertActionStyleDefault
 										handler:^(UIAlertAction *action) {
-											[self performSegueWithIdentifier:@"showTripsTable" sender:self];
+											[self performSegueWithIdentifier:THVShowTripsTableSegueName sender:self];
 										}];
 		
 		[alert addAction:defaultAction];
@@ -54,11 +61,39 @@ double const THVStartingRegionDistance = 2000.0;
 	[self.mapView setRegion:startingRegion];
 }
 
-#pragma mark - MKMapViewDelegate methods
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-	[self removeOldMapPins];
+- (void)viewWillAppear:(BOOL)animated {
+	if (self.selectedTripEntity) {
+		NSUInteger annotationIndex = [self.mapView.annotations indexOfObjectPassingTest:^BOOL(id<MKAnnotation>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+			return [((TripPointMapAnnotation *)obj).tripId isEqualToString:self.selectedTripEntity.entityId];
+		}];
+		
+		TripPointMapAnnotation *pickupAnnotation = nil;
+		
+		if (annotationIndex == NSNotFound) {
+			pickupAnnotation = [self addAnnotationsAndReturnPickupWithTripData:self.selectedTripEntity];
+		} else {
+			pickupAnnotation = [self.mapView.annotations objectAtIndex:annotationIndex];
+		}
+		
+		[self showRouteWithAnnotation:pickupAnnotation];
+	}
+	[super viewWillAppear:animated];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+	for (id<MKAnnotation> annotation in self.mapView.annotations) {
+		[self.mapView deselectAnnotation:annotation animated:NO];
+	}
+	[super viewDidDisappear:animated];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:THVShowTripsTableSegueName]) {
+		((TripsListViewController *)segue.destinationViewController).selectedTrip = self.selectedTripEntity;
+	}
+}
+
+#pragma mark - MKMapViewDelegate methods
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
 	[self setCurrentRegionDataFromRegion:mapView.region];
 	
@@ -85,7 +120,7 @@ double const THVStartingRegionDistance = 2000.0;
 		
 		annotationView.enabled = YES;
 		annotationView.animatesDrop = YES;
-		annotationView.canShowCallout = YES;
+//		annotationView.canShowCallout = YES;
 		
 		switch(((TripPointMapAnnotation *)annotation).tripPointType) {
 			case THVTripPointTypePickup:
@@ -102,31 +137,133 @@ double const THVStartingRegionDistance = 2000.0;
 	return nil;
 }
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+	if ([view.annotation isKindOfClass:[TripPointMapAnnotation class]]) {
+		[self showRouteWithAnnotation:view.annotation];
+		self.selectedTripEntity = [self retrieveSelectedTripWithEntityId:((TripPointMapAnnotation *)view.annotation).tripId];
+	}
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+	if ([view.annotation isKindOfClass:[TripPointMapAnnotation class]]) {
+		view.transform = CGAffineTransformMakeScale(THVPinScaleNormal, THVPinScaleNormal);
+		[view setHighlighted:NO];
+		
+		MKAnnotationView *relatedAnnotationView = [mapView viewForAnnotation:((TripPointMapAnnotation *)view.annotation).relatedTripPoint];
+		relatedAnnotationView.transform = CGAffineTransformMakeScale(THVPinScaleNormal, THVPinScaleNormal);
+		[relatedAnnotationView setHighlighted:NO];
+		
+		if ([self.directions isCalculating]) {
+			[self.directions cancel];
+		}
+		[mapView removeOverlays:[mapView overlays]];
+		
+		self.selectedTripEntity = nil;
+	}
+}
+
+#pragma mark MKPolyline delegate functions
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+	if ([overlay isKindOfClass:[MKPolyline class]]) {
+		MKPolyline *route = overlay;
+		MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
+		routeRenderer.strokeColor = [UIColor blueColor];
+		return routeRenderer;
+	}
+	else {
+		return nil;
+	}
+}
+
 #pragma mark - MapView operating helper methods
 - (void)showNewMapPins {
 	NSArray<TripData *> *tripDataArray = self.fetchedResultController.fetchedObjects;
 	
 	for (TripData *tripData in tripDataArray) {
-		// add pickup pin
-		TripPointMapAnnotation *pickupAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypePickup tripId:tripData.entityId coordinate:tripData.pickupCoordinate tripPointDateTime:tripData.pickupDateTime];
-		
-		if (![self.tripsPointPinsArray containsObject:pickupAnnotation]) {
-			[self.mapView addAnnotation:pickupAnnotation];
-			[self.tripsPointPinsArray addObject:pickupAnnotation];
-		}
-		
-		// add dropoff pin
-		TripPointMapAnnotation *dropoffAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypeDropoff tripId:tripData.entityId coordinate:tripData.dropoffCoordinate tripPointDateTime:tripData.dropoffDateTime];
-		
-		if (![self.tripsPointPinsArray containsObject:dropoffAnnotation]) {
-			[self.mapView addAnnotation:dropoffAnnotation];
-			[self.tripsPointPinsArray addObject:dropoffAnnotation];
-		}
+		[self addAnnotationsAndReturnPickupWithTripData:tripData];
 	}
 }
 
-- (void)removeOldMapPins {
+- (void)zoomMap:(MKMapView *)mapView toSeeRoutes:(NSArray<MKRoute *> *)routes {
 	
+	MKMapRect boundingRouteRect = MKMapRectWorld;
+	
+	for (MKRoute *route in routes) {
+		boundingRouteRect = route.polyline.boundingMapRect;
+	}
+	
+	MKCoordinateRegion region = MKCoordinateRegionForMapRect(boundingRouteRect);
+	
+	region.span.latitudeDelta *= 1.2;
+	region.span.longitudeDelta *= 1.2;
+	
+	region = [mapView regionThatFits:region];
+	[mapView setRegion:region animated:YES];
+}
+
+- (void)zoomMap:(MKMapView *)mapView toSeePickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate
+{
+	CLLocationCoordinate2D topLeftCoord;
+	CLLocationCoordinate2D bottomRightCoord;
+	
+	topLeftCoord.latitude = fmin(pickupCoordinate.latitude, dropoffCoordinate.latitude);
+	topLeftCoord.longitude = fmin(pickupCoordinate.longitude, dropoffCoordinate.longitude);
+	
+	bottomRightCoord.latitude = fmax(pickupCoordinate.latitude, dropoffCoordinate.latitude);
+	bottomRightCoord.longitude = fmax(pickupCoordinate.longitude, dropoffCoordinate.longitude);
+	
+	MKCoordinateRegion region;
+	region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5;
+	region.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5;
+	
+	// Add a little extra space on the sides
+	region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.2;
+	region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.2;
+	
+	region = [mapView regionThatFits:region];
+	[mapView setRegion:region animated:YES];
+}
+
+- (void)showRouteWithAnnotation:(TripPointMapAnnotation *)annotation {
+	
+	MKAnnotationView *annotationView = [self.mapView viewForAnnotation:annotation];
+	annotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
+	[annotationView setHighlighted:YES];
+	
+	
+	TripPointMapAnnotation *relatedAnnotation = annotation.relatedTripPoint;
+	MKAnnotationView *relatedAnnotationView = [self.mapView viewForAnnotation:relatedAnnotation];
+	relatedAnnotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
+	[relatedAnnotationView setHighlighted:YES];
+	
+	CLLocationCoordinate2D __block pickupCoordinate = annotation.tripPointType == THVTripPointTypePickup ? annotation.coordinate : relatedAnnotation.coordinate;
+	CLLocationCoordinate2D __block dropoffCoordinate = annotation.tripPointType == THVTripPointTypeDropoff ? annotation.coordinate : relatedAnnotation.coordinate;
+	
+	
+	MKDirectionsRequest *directionReuquest = [MKDirectionsRequest new];
+	directionReuquest.source = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:pickupCoordinate addressDictionary:nil]];
+	directionReuquest.destination = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:dropoffCoordinate addressDictionary:nil]];
+	directionReuquest.transportType = MKDirectionsTransportTypeAutomobile;
+	[directionReuquest setRequestsAlternateRoutes:NO];
+	
+	if ([self.directions isCalculating]) {
+		[self.directions cancel];
+	}
+	
+	MainViewController __block *this = self;
+	
+	self.directions = [[MKDirections alloc] initWithRequest:directionReuquest];
+	[self.directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
+		[this.mapView removeOverlays:[this.mapView overlays]];
+		if (!error) {
+			NSArray *routes = [response.routes valueForKeyPath:@"polyline"];
+			[this.mapView addOverlays:routes];
+			[this zoomMap:this.mapView toSeeRoutes:response.routes];
+		} else {
+			NSLog(@"Could not retrieve route!\n%@\n%@", error.localizedDescription, error.userInfo);
+			[this zoomMap:this.mapView toSeePickupCoordinate:pickupCoordinate dropoffCoordinate:dropoffCoordinate];
+		}
+	}];
 }
 
 #pragma mark - helper methods
@@ -136,8 +273,6 @@ double const THVStartingRegionDistance = 2000.0;
 	_currentRegionCenterLong = region.center.longitude;
 	_currentRegionSpanLatDelta = region.span.latitudeDelta;
 	_currentRegionSpanLongDelta = region.span.longitudeDelta;
-	
-	NSLog(@"regionDidChangeAnimated: region: center.lat = %f, center.long = %f, delta.lat = %f, delta.long = %f", _currentRegionCenterLat, _currentRegionCenterLong, _currentRegionSpanLatDelta, _currentRegionSpanLongDelta);
 	
 	self.fetchRequest.predicate = [self currentRegionFetchPredicate];
 }
@@ -159,6 +294,44 @@ double const THVStartingRegionDistance = 2000.0;
 								   ];
 	
 	return fetchPredicate;
+}
+
+- (TripData *)retrieveSelectedTripWithEntityId:(NSString *)selectedTripEntityId {
+	NSFetchRequest *selectedTripFetchRequest = [NSFetchRequest fetchRequestWithEntityName:[TripData entityName]];
+	selectedTripFetchRequest.predicate = [NSPredicate predicateWithFormat:@"entityId = %@", selectedTripEntityId];
+	
+	NSError *error = nil;
+	NSArray<TripData *> *fetchedTrips = [[[ModelCoordinator sharedInstance] mainQueueContext] executeFetchRequest:selectedTripFetchRequest error:&error];
+	
+	if (error) {
+		NSLog(@"Could not retrieve selected trip entity!\n%@\n%@", error.localizedDescription, error.userInfo);
+		return nil;
+	} else {
+		return fetchedTrips.firstObject;
+	}
+}
+
+- (TripPointMapAnnotation *)addAnnotationsAndReturnPickupWithTripData:(TripData *)tripData {
+	
+	// add pickup pin
+	TripPointMapAnnotation *pickupAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypePickup tripId:tripData.entityId coordinate:tripData.pickupCoordinate tripPointDateTime:tripData.pickupDateTime];
+	
+	if (![[self.mapView annotations] containsObject:pickupAnnotation]) {
+		[self.mapView addAnnotation:pickupAnnotation];
+	}
+	
+	// add dropoff pin
+	TripPointMapAnnotation *dropoffAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypeDropoff tripId:tripData.entityId coordinate:tripData.dropoffCoordinate tripPointDateTime:tripData.dropoffDateTime];
+	
+	if (![[self.mapView annotations] containsObject:dropoffAnnotation]) {
+		[self.mapView addAnnotation:dropoffAnnotation];
+	}
+	
+	// set related pins
+	pickupAnnotation.relatedTripPoint = dropoffAnnotation;
+	dropoffAnnotation.relatedTripPoint = pickupAnnotation;
+	
+	return pickupAnnotation;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
@@ -186,14 +359,6 @@ double const THVStartingRegionDistance = 2000.0;
 	}
 	
 	return _fetchRequest;
-}
-
-- (NSMutableArray<TripPointMapAnnotation *>*)tripsPointPinsArray {
-	if (!_tripsPointPinsArray) {
-		_tripsPointPinsArray = [NSMutableArray array];
-	}
-	
-	return _tripsPointPinsArray;
 }
 
 @end

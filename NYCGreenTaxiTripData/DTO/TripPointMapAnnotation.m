@@ -13,7 +13,6 @@ NSString *const THVTripPointTypeDropoffName = @"Dropoff";
 
 @interface TripPointMapAnnotation()
 
-@property (nonatomic) NSString *tripId;
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic) NSDate *tripPointDateTime;
 
