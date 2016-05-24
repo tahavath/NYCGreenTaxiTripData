@@ -167,9 +167,11 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 
 #pragma mark - UITableViewDelegate protocol
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	TripData *tripData = [self.fetchedResultController objectAtIndexPath:indexPath];
+	self.selectedTrip = [self.fetchedResultController objectAtIndexPath:indexPath];
 	
-	[self performSegueWithIdentifier:THVTripDetailsSegueName sender:tripData];
+	[tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+	
+	[self performSegueWithIdentifier:THVTripDetailsSegueName sender:self.selectedTrip];
 	
 	NSLog(@"tapped row at: %@", indexPath);
 }
@@ -277,7 +279,7 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 
 - (NSPredicate *)fetchPredicate {
 	if (!_fetchPredicate) {
-		_fetchPredicate = nil;
+		_fetchPredicate = [NSPredicate predicateWithFormat:@"dropoffLatitude != 0 AND dropoffLongitude != 0 AND pickupLatitude != 0 and pickupLongitude != 0"];
 	}
 	
 	return _fetchPredicate;

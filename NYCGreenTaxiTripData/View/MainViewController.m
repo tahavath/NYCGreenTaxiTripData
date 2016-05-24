@@ -10,13 +10,18 @@
 #import "ModelCoordinator.h"
 #import "TripPointMapAnnotation.h"
 #import "TripsListViewController.h"
+#import "TripDetailsViewController.h"
+#import "MainScreenTripDetailsViewController.h"
 
 double const THVStartingRegionDistance = 2000.0;
 double const THVPinScaleWhenSelected = 1.1;
 double const THVPinScaleNormal = 1.0;
 
-NSString *const THVShowTripsTableSegueName = @"showTripsTable";
+double const THVTripDetailsViewHeight = 100.0;
 
+NSString *const THVShowTripsTableSegueName = @"showTripsTable";
+NSString *const THVTripsTableStoryboardId = @"tripsList";
+NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 
 
 @interface MainViewController() {
@@ -33,6 +38,8 @@ NSString *const THVShowTripsTableSegueName = @"showTripsTable";
 @property (nonatomic) NSFetchRequest *fetchRequest;
 
 @property (nonatomic) MKDirections *directions;
+
+@property (nonatomic) MainScreenTripDetailsViewController *tripDetailsVC;
 
 @end
 
@@ -75,7 +82,7 @@ NSString *const THVShowTripsTableSegueName = @"showTripsTable";
 			pickupAnnotation = [self.mapView.annotations objectAtIndex:annotationIndex];
 		}
 		
-		[self showRouteWithAnnotation:pickupAnnotation];
+		[self.mapView selectAnnotation:pickupAnnotation animated:YES];
 	}
 	[super viewWillAppear:animated];
 }
@@ -139,8 +146,9 @@ NSString *const THVShowTripsTableSegueName = @"showTripsTable";
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 	if ([view.annotation isKindOfClass:[TripPointMapAnnotation class]]) {
-		[self showRouteWithAnnotation:view.annotation];
 		self.selectedTripEntity = [self retrieveSelectedTripWithEntityId:((TripPointMapAnnotation *)view.annotation).tripId];
+		[self showTripDetailsViewWithTripData:self.selectedTripEntity];
+		[self showRouteWithAnnotation:view.annotation];
 	}
 }
 
@@ -157,6 +165,8 @@ NSString *const THVShowTripsTableSegueName = @"showTripsTable";
 			[self.directions cancel];
 		}
 		[mapView removeOverlays:[mapView overlays]];
+		
+		[self hideTripDetailsView];
 		
 		self.selectedTripEntity = nil;
 	}
@@ -266,6 +276,41 @@ NSString *const THVShowTripsTableSegueName = @"showTripsTable";
 	}];
 }
 
+#pragma mark - Trip details view methods
+- (void)showTripDetailsViewWithTripData:(TripData *)tripData {
+	
+	[self addChildViewController:self.tripDetailsVC];
+	[self.tripDetailsView addSubview:self.tripDetailsVC.view];
+	
+	[self.tripDetailsView setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[self.tripDetailsVC.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+	NSDictionary *viewsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.tripDetailsView, @"mainView", self.tripDetailsVC.view, @"tripView", nil];
+	
+	[self.tripDetailsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tripView]|" options:0 metrics:nil views:viewsDictionary]];
+	[self.tripDetailsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tripView]|" options:0 metrics:nil views:viewsDictionary]];
+	
+	self.tripDetailsHeightConstraint.constant = THVTripDetailsViewHeight;
+	[self.view setNeedsUpdateConstraints];
+	
+	[UIView animateWithDuration:0.2 animations:^{
+		[self.view layoutIfNeeded];
+	}];
+}
+
+- (void)hideTripDetailsView {
+	
+	self.tripDetailsHeightConstraint.constant = 0;
+	[self.view setNeedsUpdateConstraints];
+	
+	[UIView animateWithDuration:0.2 animations:^{
+		[self.view layoutIfNeeded];
+	}];
+	
+	[self.tripDetailsVC removeFromParentViewController];
+	[self.tripDetailsVC.view removeFromSuperview];
+	self.tripDetailsVC = nil;
+}
+
 #pragma mark - helper methods
 - (void)setCurrentRegionDataFromRegion:(MKCoordinateRegion)region {
 	_currentRegion = region;
@@ -334,11 +379,54 @@ NSString *const THVShowTripsTableSegueName = @"showTripsTable";
 	return pickupAnnotation;
 }
 
+- (NSString *)pickupStringFromSelectedTrip {
+	NSString *pickupString = [NSString stringWithFormat:
+							  @"%.4f° %@\n%.4f° %@",
+							  fabs([self.selectedTripEntity.pickupLongitude doubleValue]),
+							  (self.selectedTripEntity.pickupLongitude > 0 ? @"N" : @"S"),
+							  fabs([self.selectedTripEntity.pickupLatitude doubleValue]),
+							  (self.selectedTripEntity.pickupLatitude > 0 ? @"E" : @"W")
+							  ];
+	return pickupString;
+}
+
+- (NSString *)dropoffStringFromSelectedTrip {
+	NSString *dropoffString = [NSString stringWithFormat:
+								  @"%.4f° %@\n%.4f° %@",
+								  fabs([self.selectedTripEntity.dropoffLongitude doubleValue]),
+								  (self.selectedTripEntity.dropoffLongitude > 0 ? @"N" : @"S"),
+								  fabs([self.selectedTripEntity.dropoffLatitude doubleValue]),
+								  (self.selectedTripEntity.dropoffLatitude > 0 ? @"E" : @"W")
+								  ];
+	return dropoffString;
+}
+
+- (NSString *)additionalInfoFromSelectedTrip {
+	NSString *additionalInfo = [NSString stringWithFormat:
+								@"%.f %@ · %.0f minutes",
+								[self.selectedTripEntity.tripDistance doubleValue],
+								[self.selectedTripEntity.tripDistance floatValue] <= 1 ? @"mile" : @"miles",
+								[self.selectedTripEntity.dropoffDateTime timeIntervalSinceDate:self.selectedTripEntity.pickupDateTime] / 60.0];
+	return additionalInfo;
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate methods
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	NSLog(@"controllerDidChangeContent - fetched count:%lu", (unsigned long)controller.fetchedObjects.count);
 	
 	[self showNewMapPins];
+}
+
+#pragma mark - MainScreenTripDetailsDelegateProtocol methods
+- (void)goToTripDetails {
+	UINavigationController *navigationController = self.navigationController;
+	
+	TripsListViewController *newTripsListVC = [self.storyboard instantiateViewControllerWithIdentifier:THVTripsTableStoryboardId];
+	newTripsListVC.selectedTrip = self.selectedTripEntity;
+	[navigationController pushViewController:newTripsListVC animated:NO];
+	
+	TripDetailsViewController *newTripDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:THVTripDetailsStoryboardId];
+	[navigationController pushViewController:newTripDetailsVC animated:YES];
 }
 
 #pragma mark - lazy properties initializers
@@ -359,6 +447,19 @@ NSString *const THVShowTripsTableSegueName = @"showTripsTable";
 	}
 	
 	return _fetchRequest;
+}
+
+- (MainScreenTripDetailsViewController *)tripDetailsVC {
+	if (!_tripDetailsVC) {
+		_tripDetailsVC = [[MainScreenTripDetailsViewController alloc]
+						  initWithPickupString:[self pickupStringFromSelectedTrip]
+						  dropoffString:[self dropoffStringFromSelectedTrip]
+						  additionalInfoString:[self additionalInfoFromSelectedTrip]
+						  delegate:self
+						  ];
+	}
+	
+	return _tripDetailsVC;
 }
 
 @end

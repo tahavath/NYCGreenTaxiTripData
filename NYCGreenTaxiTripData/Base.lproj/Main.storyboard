@@ -32,15 +32,24 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="dMD-OW-pRz"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIH-fM-DfG" userLabel="details view">
+                                <rect key="frame" x="0.0" y="556" width="600" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="PEO-S5-gFi"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hm6-lq-5va" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4ET-CC-p5T"/>
+                            <constraint firstItem="KIH-fM-DfG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5vH-ki-Ks1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hm6-lq-5va" secondAttribute="bottom" id="7OL-Md-ZtC"/>
                             <constraint firstAttribute="trailing" secondItem="VOd-Rn-Cum" secondAttribute="trailing" id="GeZ-rZ-7ii"/>
+                            <constraint firstItem="KIH-fM-DfG" firstAttribute="top" secondItem="VOd-Rn-Cum" secondAttribute="bottom" id="QW6-qu-ZEi"/>
                             <constraint firstItem="VOd-Rn-Cum" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TLM-AY-Geq"/>
+                            <constraint firstAttribute="trailing" secondItem="KIH-fM-DfG" secondAttribute="trailing" id="flm-bC-XfO"/>
+                            <constraint firstItem="hm6-lq-5va" firstAttribute="top" secondItem="KIH-fM-DfG" secondAttribute="bottom" id="fyy-qt-vVk"/>
                             <constraint firstItem="VOd-Rn-Cum" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pKd-xY-dnb"/>
-                            <constraint firstItem="hm6-lq-5va" firstAttribute="top" secondItem="VOd-Rn-Cum" secondAttribute="bottom" id="svN-dn-zL2"/>
                             <constraint firstAttribute="trailing" secondItem="hm6-lq-5va" secondAttribute="trailing" id="ukD-QH-6Xr"/>
                         </constraints>
                     </view>
@@ -48,6 +57,8 @@
                     <connections>
                         <outlet property="mapView" destination="VOd-Rn-Cum" id="U0H-ss-WSZ"/>
                         <outlet property="toolbar" destination="hm6-lq-5va" id="h2h-XA-bsy"/>
+                        <outlet property="tripDetailsHeightConstraint" destination="PEO-S5-gFi" id="TgN-OA-GSt"/>
+                        <outlet property="tripDetailsView" destination="KIH-fM-DfG" id="rqD-XH-nRM"/>
                         <outlet property="tripsBarButton" destination="Qt3-8K-JuU" id="yaz-9W-jvq"/>
                     </connections>
                 </viewController>
@@ -58,7 +69,7 @@
         <!--Trips-->
         <scene sceneID="JWH-KY-FpS">
             <objects>
-                <viewController title="Trips" id="FlJ-qM-tem" customClass="TripsListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tripsList" title="Trips" id="FlJ-qM-tem" customClass="TripsListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MPl-Ze-XAq"/>
                         <viewControllerLayoutGuide type="bottom" id="WU4-QL-QmA"/>
@@ -174,7 +185,7 @@ Please download data first. </string>
         <!--Trip Detail-->
         <scene sceneID="Mac-cJ-yPn">
             <objects>
-                <viewController title="Trip Detail" id="sRV-TJ-bZh" customClass="TripDetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tripDetails" title="Trip Detail" id="sRV-TJ-bZh" customClass="TripDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cMJ-pr-NE3"/>
                         <viewControllerLayoutGuide type="bottom" id="PKg-Bx-wbe"/>

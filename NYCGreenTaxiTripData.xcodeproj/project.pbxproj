@@ -32,6 +32,8 @@
 		8965422B1CE60E3F0064F040 /* ParentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542271CE60E3F0064F040 /* ParentEntity.m */; };
 		896542311CE9B6370064F040 /* DownloadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 896542301CE9B6370064F040 /* DownloadCoordinator.m */; };
 		896542361CE9E3030064F040 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 896542351CE9E3030064F040 /* CoreData.framework */; };
+		89D674971CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D674951CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m */; };
+		89D674981CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89D674961CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib */; };
 		89E0B1FA1CE9FEA300F46344 /* Commons.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E0B1F91CE9FEA300F46344 /* Commons.m */; };
 		A177B3EABC630A84E98DA229 /* libPods-NYCGreenTaxiTripDataTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DCDC1F24254C1F43E2490EB /* libPods-NYCGreenTaxiTripDataTests.a */; };
 /* End PBXBuildFile section */
@@ -104,6 +106,10 @@
 		896542301CE9B6370064F040 /* DownloadCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadCoordinator.m; sourceTree = "<group>"; };
 		896542321CE9B6500064F040 /* DownloadCoordinatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCoordinatorProtocol.h; sourceTree = "<group>"; };
 		896542351CE9E3030064F040 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		89D674941CF44A1C009ACA8B /* MainScreenTripDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTripDetailsViewController.h; sourceTree = "<group>"; };
+		89D674951CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenTripDetailsViewController.m; sourceTree = "<group>"; };
+		89D674961CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreenTripDetailsViewController.xib; sourceTree = "<group>"; };
+		89D674991CF47C58009ACA8B /* MainScreenTripDetailsDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTripDetailsDelegateProtocol.h; sourceTree = "<group>"; };
 		89E0B1F71CE9E89800F46344 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		89E0B1F91CE9FEA300F46344 /* Commons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commons.m; sourceTree = "<group>"; };
 		89E0B1FB1CE9FEC700F46344 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
@@ -227,8 +233,7 @@
 		896541C81CE4C9590064F040 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				896541C91CE4C98C0064F040 /* MainViewController.h */,
-				896541CA1CE4C98C0064F040 /* MainViewController.m */,
+				89D674931CF44996009ACA8B /* MainScreen */,
 				896542021CE5F9930064F040 /* TripsScreen */,
 				895EE6DE1CEF01AE008B2060 /* TripsDetailsScreen */,
 			);
@@ -306,6 +311,19 @@
 				896542051CE5F9EC0064F040 /* TripsListTableViewCell.xib */,
 			);
 			name = TripsScreen;
+			sourceTree = "<group>";
+		};
+		89D674931CF44996009ACA8B /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				896541C91CE4C98C0064F040 /* MainViewController.h */,
+				896541CA1CE4C98C0064F040 /* MainViewController.m */,
+				89D674941CF44A1C009ACA8B /* MainScreenTripDetailsViewController.h */,
+				89D674951CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m */,
+				89D674961CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib */,
+				89D674991CF47C58009ACA8B /* MainScreenTripDetailsDelegateProtocol.h */,
+			);
+			name = MainScreen;
 			sourceTree = "<group>";
 		};
 		AEC9DE03667F1FABB1F6BB4B /* Frameworks */ = {
@@ -448,6 +466,7 @@
 				896542071CE5F9EC0064F040 /* TripsListTableViewCell.xib in Resources */,
 				896541AE1CE4C61D0064F040 /* Assets.xcassets in Resources */,
 				896541A91CE4C61D0064F040 /* Main.storyboard in Resources */,
+				89D674981CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +623,7 @@
 				896541AC1CE4C61D0064F040 /* NYCGreenTaxiTripData.xcdatamodeld in Sources */,
 				896541A31CE4C61D0064F040 /* AppDelegate.m in Sources */,
 				895EE6E51CEF45F9008B2060 /* TripPointMapAnnotation.m in Sources */,
+				89D674971CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m in Sources */,
 				8965422A1CE60E3F0064F040 /* ParentEntity+CoreDataProperties.m in Sources */,
 				896541CB1CE4C98C0064F040 /* MainViewController.m in Sources */,
 				896542281CE60E3F0064F040 /* TripData+CoreDataProperties.m in Sources */,
