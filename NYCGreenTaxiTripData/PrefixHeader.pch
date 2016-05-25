@@ -9,3 +9,5 @@
 #import <CoreData/CoreData.h>
 #import "Commons.h"
 
+#import "MKMapView+TripDataAdditions.h"
+

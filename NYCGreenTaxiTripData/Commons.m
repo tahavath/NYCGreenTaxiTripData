@@ -26,6 +26,8 @@ NSString *const THVNotificationNameTripsOffsetChanged = @"THVNotificationNameTri
 
 NSString *const THVLabelNoTripsToShow = @"There are no trips to show.\n\nPlease download data first.";
 
+double const THVPinScaleWhenSelected = 1.1;
+double const THVPinScaleNormal = 1.0;
 
 @interface Commons ()
 

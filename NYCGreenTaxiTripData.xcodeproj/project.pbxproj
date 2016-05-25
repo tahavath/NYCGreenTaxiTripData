@@ -34,6 +34,7 @@
 		896542361CE9E3030064F040 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 896542351CE9E3030064F040 /* CoreData.framework */; };
 		89D674971CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D674951CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m */; };
 		89D674981CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89D674961CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib */; };
+		89D6749D1CF5BB38009ACA8B /* MKMapView+TripDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D6749C1CF5BB38009ACA8B /* MKMapView+TripDataAdditions.m */; };
 		89E0B1FA1CE9FEA300F46344 /* Commons.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E0B1F91CE9FEA300F46344 /* Commons.m */; };
 		A177B3EABC630A84E98DA229 /* libPods-NYCGreenTaxiTripDataTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DCDC1F24254C1F43E2490EB /* libPods-NYCGreenTaxiTripDataTests.a */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,8 @@
 		89D674951CF44A1C009ACA8B /* MainScreenTripDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenTripDetailsViewController.m; sourceTree = "<group>"; };
 		89D674961CF44A1C009ACA8B /* MainScreenTripDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreenTripDetailsViewController.xib; sourceTree = "<group>"; };
 		89D674991CF47C58009ACA8B /* MainScreenTripDetailsDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTripDetailsDelegateProtocol.h; sourceTree = "<group>"; };
+		89D6749B1CF5BB38009ACA8B /* MKMapView+TripDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+TripDataAdditions.h"; sourceTree = "<group>"; };
+		89D6749C1CF5BB38009ACA8B /* MKMapView+TripDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+TripDataAdditions.m"; sourceTree = "<group>"; };
 		89E0B1F71CE9E89800F46344 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		89E0B1F91CE9FEA300F46344 /* Commons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commons.m; sourceTree = "<group>"; };
 		89E0B1FB1CE9FEC700F46344 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
@@ -233,6 +236,7 @@
 		896541C81CE4C9590064F040 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				89D6749A1CF5BB1A009ACA8B /* Categories */,
 				89D674931CF44996009ACA8B /* MainScreen */,
 				896542021CE5F9930064F040 /* TripsScreen */,
 				895EE6DE1CEF01AE008B2060 /* TripsDetailsScreen */,
@@ -324,6 +328,15 @@
 				89D674991CF47C58009ACA8B /* MainScreenTripDetailsDelegateProtocol.h */,
 			);
 			name = MainScreen;
+			sourceTree = "<group>";
+		};
+		89D6749A1CF5BB1A009ACA8B /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				89D6749B1CF5BB38009ACA8B /* MKMapView+TripDataAdditions.h */,
+				89D6749C1CF5BB38009ACA8B /* MKMapView+TripDataAdditions.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		AEC9DE03667F1FABB1F6BB4B /* Frameworks */ = {
@@ -619,6 +632,7 @@
 				896542061CE5F9EC0064F040 /* TripsListTableViewCell.m in Sources */,
 				896541DF1CE5B48A0064F040 /* ModelCoordinator.m in Sources */,
 				89E0B1FA1CE9FEA300F46344 /* Commons.m in Sources */,
+				89D6749D1CF5BB38009ACA8B /* MKMapView+TripDataAdditions.m in Sources */,
 				8965422B1CE60E3F0064F040 /* ParentEntity.m in Sources */,
 				896541AC1CE4C61D0064F040 /* NYCGreenTaxiTripData.xcdatamodeld in Sources */,
 				896541A31CE4C61D0064F040 /* AppDelegate.m in Sources */,
@@ -792,7 +806,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(inherited)";
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData;
@@ -813,7 +827,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(inherited)";
 				INFOPLIST_FILE = NYCGreenTaxiTripData/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mob.learning.thv.NYCGreenTaxiTripData;

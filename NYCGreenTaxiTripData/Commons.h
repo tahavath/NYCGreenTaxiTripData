@@ -26,6 +26,8 @@ extern NSString *const THVNotificationNameTripsOffsetChanged;
 
 extern NSString *const THVLabelNoTripsToShow;
 
+extern double const THVPinScaleWhenSelected;
+extern double const THVPinScaleNormal;
 
 @interface Commons : NSObject
 
