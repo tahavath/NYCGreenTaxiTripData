@@ -47,7 +47,6 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	NSLog(@"viewDidLoad");
 	
 	if (![Commons readValueFromUserDefaultsForKey:THVUserDefaultsDownloadOffsetKey]) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:THVLabelNoTripsToShow preferredStyle:UIAlertControllerStyleAlert];
@@ -426,6 +425,7 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 	[navigationController pushViewController:newTripsListVC animated:NO];
 	
 	TripDetailsViewController *newTripDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:THVTripDetailsStoryboardId];
+	newTripDetailsVC.selectedTripEntity = self.selectedTripEntity;
 	[navigationController pushViewController:newTripDetailsVC animated:YES];
 }
 

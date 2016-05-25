@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zRm-Hh-0OR">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--NYC Green Taxi Trip Data-->
@@ -193,8 +194,63 @@ Please download data first. </string>
                     <view key="view" contentMode="scaleToFill" id="rVo-bH-Ojm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p2h-gg-VmO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnC-VI-vGn" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                        <subviews>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sac-DK-sts">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                            </mapView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label label ba asdf asd fas fas fas df asdf sad fsad fs adf sda" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gos-lZ-5qL">
+                                                <rect key="frame" x="0.0" y="300" width="600" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Sac-DK-sts" secondAttribute="trailing" id="4EQ-O0-Cm6"/>
+                                            <constraint firstItem="Sac-DK-sts" firstAttribute="centerY" secondItem="bnC-VI-vGn" secondAttribute="centerY" id="Ujk-63-jic"/>
+                                            <constraint firstItem="Sac-DK-sts" firstAttribute="leading" secondItem="bnC-VI-vGn" secondAttribute="leading" id="Y5x-Md-Tv2"/>
+                                            <constraint firstItem="Sac-DK-sts" firstAttribute="centerX" secondItem="bnC-VI-vGn" secondAttribute="centerX" id="ePR-7h-ocX"/>
+                                            <constraint firstItem="Gos-lZ-5qL" firstAttribute="top" secondItem="Sac-DK-sts" secondAttribute="bottom" id="fwB-e0-6g2"/>
+                                            <constraint firstItem="Gos-lZ-5qL" firstAttribute="leading" secondItem="bnC-VI-vGn" secondAttribute="leading" id="j8o-gB-2O2"/>
+                                            <constraint firstItem="Sac-DK-sts" firstAttribute="top" secondItem="bnC-VI-vGn" secondAttribute="top" id="zEN-Rq-elP"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bnC-VI-vGn" secondAttribute="trailing" id="HlP-eV-pjb"/>
+                                    <constraint firstItem="bnC-VI-vGn" firstAttribute="top" secondItem="p2h-gg-VmO" secondAttribute="top" id="hXs-ij-hn6"/>
+                                    <constraint firstItem="bnC-VI-vGn" firstAttribute="leading" secondItem="p2h-gg-VmO" secondAttribute="leading" id="srC-fd-bGF"/>
+                                    <constraint firstAttribute="bottom" secondItem="bnC-VI-vGn" secondAttribute="bottom" id="zTf-8C-i7A"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gos-lZ-5qL" firstAttribute="width" secondItem="rVo-bH-Ojm" secondAttribute="width" id="3xY-UQ-wMO"/>
+                            <constraint firstItem="bnC-VI-vGn" firstAttribute="width" secondItem="rVo-bH-Ojm" secondAttribute="width" id="7t8-fS-dwb"/>
+                            <constraint firstItem="p2h-gg-VmO" firstAttribute="leading" secondItem="rVo-bH-Ojm" secondAttribute="leading" id="WHV-v0-vvK"/>
+                            <constraint firstAttribute="trailing" secondItem="p2h-gg-VmO" secondAttribute="trailing" id="Zds-iD-LUe"/>
+                            <constraint firstItem="p2h-gg-VmO" firstAttribute="top" secondItem="rVo-bH-Ojm" secondAttribute="top" id="qac-S3-HHX"/>
+                            <constraint firstItem="PKg-Bx-wbe" firstAttribute="top" secondItem="p2h-gg-VmO" secondAttribute="bottom" id="r0Y-cR-GPX"/>
+                            <constraint firstItem="Sac-DK-sts" firstAttribute="height" secondItem="rVo-bH-Ojm" secondAttribute="height" multiplier="0.5" id="zbm-LO-5tS"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="contentView" destination="bnC-VI-vGn" id="sUp-s6-MS0"/>
+                        <outlet property="mapView" destination="Sac-DK-sts" id="S8c-1W-ajt"/>
+                        <outlet property="scrollView" destination="p2h-gg-VmO" id="jGL-zG-1Ph"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o63-Cm-pAT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

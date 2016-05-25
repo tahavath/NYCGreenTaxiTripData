@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "TripData.h"
 
 @interface TripDetailsViewController : UIViewController
 
-@property (nonatomic) CLLocationDegrees pickupLatitude;
-@property (nonatomic) CLLocationDegrees pickupLongitude;
+@property (nonatomic) TripData *selectedTripEntity;
 
-@property (nonatomic) CLLocationDegrees dropoffLatitude;
-@property (nonatomic) CLLocationDegrees dropoffLongitude;
-
-@property (nonatomic) float tripDistance;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end

@@ -107,16 +107,9 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:THVTripDetailsSegueName]){
-		TripData *tripData = (TripData *)sender;
-		
+	if ([segue.identifier isEqualToString:THVTripDetailsSegueName]) {
 		TripDetailsViewController *vc = segue.destinationViewController;
-		vc.pickupLatitude = [tripData.pickupLatitude doubleValue];
-		vc.pickupLongitude = [tripData.pickupLongitude doubleValue];
-		vc.dropoffLatitude = [tripData.dropoffLatitude doubleValue];
-		vc.dropoffLongitude = [tripData.dropoffLongitude doubleValue];
-		
-		vc.tripDistance = [tripData.tripDistance floatValue];
+		vc.selectedTripEntity = self.selectedTrip;
 	}
 }
 
@@ -172,8 +165,6 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 	[tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 	
 	[self performSegueWithIdentifier:THVTripDetailsSegueName sender:self.selectedTrip];
-	
-	NSLog(@"tapped row at: %@", indexPath);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

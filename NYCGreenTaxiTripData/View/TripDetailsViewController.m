@@ -7,11 +7,9 @@
 //
 
 #import "TripDetailsViewController.h"
+#import "TripPointMapAnnotation.h"
 
 @interface TripDetailsViewController ()
-
-@property (nonatomic) CLLocationCoordinate2D pickupCoordinate;
-@property (nonatomic) CLLocationCoordinate2D dropoffCoordinate;
 
 @end
 
@@ -19,7 +17,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+	
+	[self setupMapView];
+}
+
+- (void)viewDidLayoutSubviews {
+	TripPointMapAnnotation *pickupAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypePickup
+																							  tripId:self.selectedTripEntity.entityId
+																						  coordinate:self.selectedTripEntity.pickupCoordinate
+																				   tripPointDateTime:self.selectedTripEntity.pickupDateTime];
+	TripPointMapAnnotation *dropoffAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypePickup
+																							   tripId:self.selectedTripEntity.entityId
+																						   coordinate:self.selectedTripEntity.dropoffCoordinate
+																					tripPointDateTime:self.selectedTripEntity.dropoffDateTime];
+	NSArray *annotations = @[pickupAnnotation, dropoffAnnotation];
+	[self.mapView addAnnotations:annotations];
+	[self.mapView showAnnotations:[self.mapView annotations] animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,21 +40,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - properties lazy initializations
-- (CLLocationCoordinate2D)pickupCoordinate {
-	if (!_pickupCoordinate.latitude && !_pickupCoordinate.longitude) {
-		_pickupCoordinate = CLLocationCoordinate2DMake(self.pickupLatitude, self.pickupLongitude);
-	}
-	
-	return _pickupCoordinate;
-}
-
-- (CLLocationCoordinate2D)dropoffCoordinate {
-	if (!_dropoffCoordinate.latitude && !_dropoffCoordinate.longitude) {
-		_dropoffCoordinate = CLLocationCoordinate2DMake(self.dropoffLatitude, self.dropoffLongitude);
-	}
-	
-	return _dropoffCoordinate;
+#pragma mark - helper methods
+- (void)setupMapView {
 }
 
 @end
