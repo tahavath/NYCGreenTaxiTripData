@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "TripData.h"
 
-@interface TripDetailsViewController : UIViewController
+@interface TripDetailsViewController : UIViewController <MKMapViewDelegate>
 
 @property (nonatomic) TripData *selectedTripEntity;
 

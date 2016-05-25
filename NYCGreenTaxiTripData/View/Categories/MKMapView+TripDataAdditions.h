@@ -22,5 +22,5 @@
 - (void)tda_zoomToSeeRoutes:(NSArray<MKRoute *> *)routes;
 - (void)tda_zoomToSeePickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate;
 - (void)tda_showRouteWithAnnotation:(TripPointMapAnnotation *)annotation directions:(MKDirections * __strong *)directions;
-
+- (TripPointMapAnnotation *)addAnnotationsAndReturnPickupWithTripId:(NSString *)entityId pickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate pickupDateTime:(NSDate *)pickupDateTime dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate dropoffDateTime:(NSDate *)dropoffDateTime;
 @end

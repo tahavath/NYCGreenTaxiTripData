@@ -98,13 +98,18 @@
 
 - (void)tda_showRouteWithAnnotation:(TripPointMapAnnotation *)annotation directions:(MKDirections * __strong *)directions {
 	
-	MKAnnotationView *annotationView = [self viewForAnnotation:annotation];
+	if (directions == NULL) {
+		MKDirections *localDirections;
+		directions = &localDirections;
+	}
+	
+	MKAnnotationView *annotationView = [self tda_viewForAnnotation:annotation];
 	annotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
 	[annotationView setHighlighted:YES];
 	
 	
 	TripPointMapAnnotation *relatedAnnotation = annotation.relatedTripPoint;
-	MKAnnotationView *relatedAnnotationView = [self viewForAnnotation:relatedAnnotation];
+	MKAnnotationView *relatedAnnotationView = [self tda_viewForAnnotation:relatedAnnotation];
 	relatedAnnotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
 	[relatedAnnotationView setHighlighted:YES];
 	
@@ -136,6 +141,29 @@
 			[this tda_zoomToSeePickupCoordinate:pickupCoordinate dropoffCoordinate:dropoffCoordinate];
 		}
 	}];
+}
+
+- (TripPointMapAnnotation *)addAnnotationsAndReturnPickupWithTripId:(NSString *)entityId pickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate pickupDateTime:(NSDate *)pickupDateTime dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate dropoffDateTime:(NSDate *)dropoffDateTime {
+	
+	// add pickup pin
+	TripPointMapAnnotation *pickupAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypePickup tripId:entityId coordinate:pickupCoordinate tripPointDateTime:pickupDateTime];
+	
+	if (![[self annotations] containsObject:pickupAnnotation]) {
+		[self addAnnotation:pickupAnnotation];
+	}
+	
+	// add dropoff pin
+	TripPointMapAnnotation *dropoffAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypeDropoff tripId:entityId coordinate:dropoffCoordinate tripPointDateTime:dropoffDateTime];
+	
+	if (![[self annotations] containsObject:dropoffAnnotation]) {
+		[self addAnnotation:dropoffAnnotation];
+	}
+	
+	// set related pins
+	pickupAnnotation.relatedTripPoint = dropoffAnnotation;
+	dropoffAnnotation.relatedTripPoint = pickupAnnotation;
+	
+	return pickupAnnotation;
 }
 
 @end

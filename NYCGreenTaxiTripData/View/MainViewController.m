@@ -74,7 +74,8 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 		TripPointMapAnnotation *pickupAnnotation = nil;
 		
 		if (annotationIndex == NSNotFound) {
-			pickupAnnotation = [self addAnnotationsAndReturnPickupWithTripData:self.selectedTripEntity];
+			pickupAnnotation =
+			[self.mapView addAnnotationsAndReturnPickupWithTripId:self.selectedTripEntity.entityId pickupCoordinate:self.selectedTripEntity.pickupCoordinate pickupDateTime:self.selectedTripEntity.pickupDateTime dropoffCoordinate:self.selectedTripEntity.dropoffCoordinate dropoffDateTime:self.selectedTripEntity.dropoffDateTime];
 		} else {
 			pickupAnnotation = [self.mapView.annotations objectAtIndex:annotationIndex];
 		}
@@ -142,7 +143,7 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 	}
 }
 
-#pragma mark MKPolyline delegate functions
+#pragma mark - MKPolyline delegate functions
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
 	return [mapView tda_rendererForOverlay:overlay];
 }
@@ -152,7 +153,7 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 	NSArray<TripData *> *tripDataArray = self.fetchedResultController.fetchedObjects;
 	
 	for (TripData *tripData in tripDataArray) {
-		[self addAnnotationsAndReturnPickupWithTripData:tripData];
+		[self.mapView addAnnotationsAndReturnPickupWithTripId:tripData.entityId pickupCoordinate:tripData.pickupCoordinate pickupDateTime:tripData.pickupDateTime dropoffCoordinate:tripData.dropoffCoordinate dropoffDateTime:tripData.dropoffDateTime];
 	}
 }
 
@@ -234,29 +235,6 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 	} else {
 		return fetchedTrips.firstObject;
 	}
-}
-
-- (TripPointMapAnnotation *)addAnnotationsAndReturnPickupWithTripData:(TripData *)tripData {
-	
-	// add pickup pin
-	TripPointMapAnnotation *pickupAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypePickup tripId:tripData.entityId coordinate:tripData.pickupCoordinate tripPointDateTime:tripData.pickupDateTime];
-	
-	if (![[self.mapView annotations] containsObject:pickupAnnotation]) {
-		[self.mapView addAnnotation:pickupAnnotation];
-	}
-	
-	// add dropoff pin
-	TripPointMapAnnotation *dropoffAnnotation = [[TripPointMapAnnotation alloc] initWithTripPointType:THVTripPointTypeDropoff tripId:tripData.entityId coordinate:tripData.dropoffCoordinate tripPointDateTime:tripData.dropoffDateTime];
-	
-	if (![[self.mapView annotations] containsObject:dropoffAnnotation]) {
-		[self.mapView addAnnotation:dropoffAnnotation];
-	}
-	
-	// set related pins
-	pickupAnnotation.relatedTripPoint = dropoffAnnotation;
-	dropoffAnnotation.relatedTripPoint = pickupAnnotation;
-	
-	return pickupAnnotation;
 }
 
 - (NSString *)pickupStringFromSelectedTrip {
