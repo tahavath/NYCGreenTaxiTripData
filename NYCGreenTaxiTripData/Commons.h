@@ -6,6 +6,8 @@
 //  Copyright © 2016 tahavath. All rights reserved.
 //
 
+#import "TripData.h"
+
 extern NSString *const THVUserDefaultsDownloadOffsetKey;
 extern NSString *const THVUserDefaultsOverallTripsCountKey;
 
@@ -35,6 +37,13 @@ extern double const THVPinScaleNormal;
 
 + (id)readValueFromUserDefaultsForKey:(NSString *)key;
 + (void)writeValue:(id)value toUserDefaultsForKey:(NSString *)key;
+
++ (TripData *)selectedTrip;
++ (TripData *)previouslySelectedTrip;
++ (NSArray *)tripRoutes;
++ (void)setSelectedTrip:(TripData *)trip;
++ (void)setPreviouslySelectedTrip:(TripData *)previousTrip;
++ (void)setTripRoutes:(NSArray *)routes;
 
 - (NSDateFormatter *)dateFormatter;
 - (NSDateFormatter *)monthFormatterForStoringAndSorting;

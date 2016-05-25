@@ -24,7 +24,6 @@
 }
 
 - (void)viewDidLayoutSubviews {
-	NSLog(@"viewDidLayoutSubviews");
 	if (!_directions) {
 		[self.mapView tda_showRouteWithAnnotation:self.mapView.annotations.firstObject directions:&_directions];
 	}

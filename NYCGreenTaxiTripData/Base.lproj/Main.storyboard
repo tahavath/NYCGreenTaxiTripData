@@ -202,7 +202,7 @@ Please download data first. </string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnC-VI-vGn" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                                         <subviews>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sac-DK-sts">
+                                            <mapView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sac-DK-sts">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="sRV-TJ-bZh" id="cMx-bg-0yR"/>

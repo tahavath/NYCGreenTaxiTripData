@@ -29,6 +29,10 @@ NSString *const THVLabelNoTripsToShow = @"There are no trips to show.\n\nPlease 
 double const THVPinScaleWhenSelected = 1.1;
 double const THVPinScaleNormal = 1.0;
 
+static TripData *THVSelectedTrip = nil;
+static TripData *THVPreviouslySelectedTrip = nil;
+static NSArray *THVTripRoutes = nil;
+
 @interface Commons ()
 
 @property (nonatomic) NSDateFormatter *dateFormatter;
@@ -62,6 +66,29 @@ double const THVPinScaleNormal = 1.0;
 	if (![userDefaults synchronize]) {
 		NSLog(@"Writing to user defaults not succeeded!\nvkey = %@\nvalue = %@", key, value);
 	}
+}
+
++ (TripData *)selectedTrip {
+	return THVSelectedTrip;
+}
+
++ (TripData *)previouslySelectedTrip {
+	return THVPreviouslySelectedTrip;
+}
+
++ (NSArray *)tripRoutes {
+	return THVTripRoutes;
+}
++ (void)setSelectedTrip:(TripData *)trip {
+	THVSelectedTrip = trip;
+}
+
++ (void)setPreviouslySelectedTrip:(TripData *)previousTrip {
+	THVPreviouslySelectedTrip = previousTrip;
+}
+
++ (void)setTripRoutes:(NSArray *)routes {
+	THVTripRoutes = routes;
 }
 
 - (NSDateFormatter *)dateFormatter {
