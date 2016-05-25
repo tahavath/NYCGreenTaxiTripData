@@ -12,15 +12,15 @@
 @interface MKMapView (TripDataAdditions)
 
 #pragma mark - MKMapViewDelegate methods
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+- (MKAnnotationView *)tda_viewForAnnotation:(id<MKAnnotation>)annotation
 ;
 
 #pragma mark MKPolyline delegate functions
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay;
+- (MKOverlayRenderer *)tda_rendererForOverlay:(id<MKOverlay>)overlay;
 
 #pragma mark - MapView operating helper methods
-- (void)zoomMap:(MKMapView *)mapView toSeeRoutes:(NSArray<MKRoute *> *)routes;
-- (void)zoomMap:(MKMapView *)mapView toSeePickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate;
-- (void)showRouteInMap:(MKMapView *)mapView withAnnotation:(TripPointMapAnnotation *)annotation directions:(MKDirections * __strong *)directions;
+- (void)tda_zoomToSeeRoutes:(NSArray<MKRoute *> *)routes;
+- (void)tda_zoomToSeePickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate;
+- (void)tda_showRouteWithAnnotation:(TripPointMapAnnotation *)annotation directions:(MKDirections * __strong *)directions;
 
 @end

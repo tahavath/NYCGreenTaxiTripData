@@ -111,14 +111,14 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-	return [self.mapView mapView:mapView viewForAnnotation:annotation];
+	return [mapView tda_viewForAnnotation:annotation];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 	if ([view.annotation isKindOfClass:[TripPointMapAnnotation class]]) {
 		self.selectedTripEntity = [self retrieveSelectedTripWithEntityId:((TripPointMapAnnotation *)view.annotation).tripId];
 		[self showTripDetailsViewWithTripData:self.selectedTripEntity];
-		[self showRouteInMap:self.mapView withAnnotation:view.annotation directions:&_directions];
+		[mapView tda_showRouteWithAnnotation:view.annotation directions:&_directions];
 	}
 }
 
@@ -144,7 +144,7 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 
 #pragma mark MKPolyline delegate functions
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
-	return [self.mapView mapView:mapView rendererForOverlay:overlay];
+	return [mapView tda_rendererForOverlay:overlay];
 }
 
 #pragma mark - MapView operating helper methods
@@ -154,19 +154,6 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 	for (TripData *tripData in tripDataArray) {
 		[self addAnnotationsAndReturnPickupWithTripData:tripData];
 	}
-}
-
-- (void)zoomMap:(MKMapView *)mapView toSeeRoutes:(NSArray<MKRoute *> *)routes {
-	[self.mapView zoomMap:mapView toSeeRoutes:routes];
-}
-
-- (void)zoomMap:(MKMapView *)mapView toSeePickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate
-{
-	[self.mapView zoomMap:mapView toSeePickupCoordinate:pickupCoordinate dropoffCoordinate:dropoffCoordinate];
-}
-
-- (void)showRouteInMap:(MKMapView *)mapView withAnnotation:(TripPointMapAnnotation *)annotation directions:(MKDirections * __strong *)directions {
-	[self.mapView showRouteInMap:mapView withAnnotation:annotation directions:directions];
 }
 
 #pragma mark - Trip details view methods

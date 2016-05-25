@@ -11,11 +11,11 @@
 @implementation MKMapView (TripDataAdditions)
 
 #pragma mark - MKMapViewDelegate methods
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+- (MKAnnotationView *)tda_viewForAnnotation:(id<MKAnnotation>)annotation {
 	static NSString *identifier = @"TripPoinIdentifier";
 	
 	if ([annotation isKindOfClass:[TripPointMapAnnotation class]]) {
-		MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+		MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[self dequeueReusableAnnotationViewWithIdentifier:identifier];
 		
 		if (annotationView == nil) {
 			annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
@@ -43,7 +43,7 @@
 }
 
 #pragma mark MKPolyline delegate functions
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+- (MKOverlayRenderer *)tda_rendererForOverlay:(id<MKOverlay>)overlay {
 	if ([overlay isKindOfClass:[MKPolyline class]]) {
 		MKPolyline *route = overlay;
 		MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
@@ -56,7 +56,7 @@
 }
 
 #pragma mark - MapView operating helper methods
-- (void)zoomMap:(MKMapView *)mapView toSeeRoutes:(NSArray<MKRoute *> *)routes {
+- (void)tda_zoomToSeeRoutes:(NSArray<MKRoute *> *)routes {
 	
 	MKMapRect boundingRouteRect = MKMapRectWorld;
 	
@@ -69,11 +69,11 @@
 	region.span.latitudeDelta *= 1.2;
 	region.span.longitudeDelta *= 1.2;
 	
-	region = [mapView regionThatFits:region];
-	[mapView setRegion:region animated:YES];
+	region = [self regionThatFits:region];
+	[self setRegion:region animated:YES];
 }
 
-- (void)zoomMap:(MKMapView *)mapView toSeePickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate
+- (void)tda_zoomToSeePickupCoordinate:(CLLocationCoordinate2D)pickupCoordinate dropoffCoordinate:(CLLocationCoordinate2D)dropoffCoordinate
 {
 	CLLocationCoordinate2D topLeftCoord;
 	CLLocationCoordinate2D bottomRightCoord;
@@ -92,19 +92,19 @@
 	region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.2;
 	region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.2;
 	
-	region = [mapView regionThatFits:region];
-	[mapView setRegion:region animated:YES];
+	region = [self regionThatFits:region];
+	[self setRegion:region animated:YES];
 }
 
-- (void)showRouteInMap:(MKMapView *)mapView withAnnotation:(TripPointMapAnnotation *)annotation directions:(MKDirections * __strong *)directions {
+- (void)tda_showRouteWithAnnotation:(TripPointMapAnnotation *)annotation directions:(MKDirections * __strong *)directions {
 	
-	MKAnnotationView *annotationView = [mapView viewForAnnotation:annotation];
+	MKAnnotationView *annotationView = [self viewForAnnotation:annotation];
 	annotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
 	[annotationView setHighlighted:YES];
 	
 	
 	TripPointMapAnnotation *relatedAnnotation = annotation.relatedTripPoint;
-	MKAnnotationView *relatedAnnotationView = [mapView viewForAnnotation:relatedAnnotation];
+	MKAnnotationView *relatedAnnotationView = [self viewForAnnotation:relatedAnnotation];
 	relatedAnnotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
 	[relatedAnnotationView setHighlighted:YES];
 	
@@ -122,7 +122,7 @@
 		[*directions cancel];
 	}
 	
-	MKMapView __block *this = mapView;
+	MKMapView __block *this = self;
 	
 	*directions = [[MKDirections alloc] initWithRequest:directionReuquest];
 	[*directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
@@ -130,10 +130,10 @@
 		if (!error) {
 			NSArray *routes = [response.routes valueForKeyPath:@"polyline"];
 			[this addOverlays:routes];
-			[this zoomMap:this toSeeRoutes:response.routes];
+			[this tda_zoomToSeeRoutes:response.routes];
 		} else {
 			NSLog(@"Could not retrieve route!\n%@\n%@", error.localizedDescription, error.userInfo);
-			[this zoomMap:this toSeePickupCoordinate:pickupCoordinate dropoffCoordinate:dropoffCoordinate];
+			[this tda_zoomToSeePickupCoordinate:pickupCoordinate dropoffCoordinate:dropoffCoordinate];
 		}
 	}];
 }
