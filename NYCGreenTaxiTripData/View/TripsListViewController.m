@@ -92,24 +92,8 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 		[self prepareDownloadProgress];
 	}
 	
-	if (self.selectedTrip) {
-		[self.tripsTableView selectRowAtIndexPath:[self.fetchedResultController indexPathForObject:self.selectedTrip] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
-	}
-}
-
--(void) viewWillDisappear:(BOOL)animated {
-	if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
-		MainViewController *mainVC = self.navigationController.viewControllers[0];
-		mainVC.selectedTripEntity = self.selectedTrip;
-	}
-	
-	[super viewWillDisappear:animated];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:THVTripDetailsSegueName]) {
-		TripDetailsViewController *vc = segue.destinationViewController;
-		vc.selectedTripEntity = self.selectedTrip;
+	if ([Commons selectedTrip]) {
+		[self.tripsTableView selectRowAtIndexPath:[self.fetchedResultController indexPathForObject:[Commons selectedTrip]] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 	}
 }
 
@@ -160,15 +144,16 @@ THVDragDirection detectDragDirection(currentOffsetY, previouseOffsetY) {
 
 #pragma mark - UITableViewDelegate protocol
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	self.selectedTrip = [self.fetchedResultController objectAtIndexPath:indexPath];
-	
+	[Commons setPreviouslySelectedTrip:[Commons selectedTrip]];
+	[Commons setSelectedTrip:[self.fetchedResultController objectAtIndexPath:indexPath]];
 	[tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 	
-	[self performSegueWithIdentifier:THVTripDetailsSegueName sender:self.selectedTrip];
+	[self performSegueWithIdentifier:THVTripDetailsSegueName sender:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	self.selectedTrip = [self.fetchedResultController objectAtIndexPath:indexPath];
+	[Commons setPreviouslySelectedTrip:[Commons selectedTrip]];
+	[Commons setSelectedTrip:[self.fetchedResultController objectAtIndexPath:indexPath]];
 }
 
 #pragma mark - table view helper methods

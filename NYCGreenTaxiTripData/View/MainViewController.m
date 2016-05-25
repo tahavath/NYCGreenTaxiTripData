@@ -1,4 +1,4 @@
-//
+	//
 //  MainViewController.m
 //  NYCGreenTaxiTripData
 //
@@ -66,16 +66,22 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	if (self.selectedTripEntity) {
+	if ([Commons selectedTrip] && ([Commons selectedTrip] != [Commons previouslySelectedTrip])) {
+		// remove previous route
+		if ([Commons previouslySelectedTrip]) {
+			[self.mapView removeOverlays:[self.mapView overlays]];
+		}
+		
+		// select new trip
 		NSUInteger annotationIndex = [self.mapView.annotations indexOfObjectPassingTest:^BOOL(id<MKAnnotation>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-			return [((TripPointMapAnnotation *)obj).tripId isEqualToString:self.selectedTripEntity.entityId];
+			return [((TripPointMapAnnotation *)obj).tripId isEqualToString:[Commons selectedTrip].entityId];
 		}];
 		
 		TripPointMapAnnotation *pickupAnnotation = nil;
 		
 		if (annotationIndex == NSNotFound) {
 			pickupAnnotation =
-			[self.mapView addAnnotationsAndReturnPickupWithTripId:self.selectedTripEntity.entityId pickupCoordinate:self.selectedTripEntity.pickupCoordinate pickupDateTime:self.selectedTripEntity.pickupDateTime dropoffCoordinate:self.selectedTripEntity.dropoffCoordinate dropoffDateTime:self.selectedTripEntity.dropoffDateTime];
+			[self.mapView addAnnotationsAndReturnPickupWithTripId:[Commons selectedTrip].entityId pickupCoordinate:[Commons selectedTrip].pickupCoordinate pickupDateTime:[Commons selectedTrip].pickupDateTime dropoffCoordinate:[Commons selectedTrip].dropoffCoordinate dropoffDateTime:[Commons selectedTrip].dropoffDateTime];
 		} else {
 			pickupAnnotation = [self.mapView.annotations objectAtIndex:annotationIndex];
 		}
@@ -83,19 +89,6 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 		[self.mapView selectAnnotation:pickupAnnotation animated:YES];
 	}
 	[super viewWillAppear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-	for (id<MKAnnotation> annotation in self.mapView.annotations) {
-		[self.mapView deselectAnnotation:annotation animated:NO];
-	}
-	[super viewDidDisappear:animated];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:THVShowTripsTableSegueName]) {
-		((TripsListViewController *)segue.destinationViewController).selectedTrip = self.selectedTripEntity;
-	}
 }
 
 #pragma mark - MKMapViewDelegate methods
@@ -117,20 +110,17 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 	if ([view.annotation isKindOfClass:[TripPointMapAnnotation class]]) {
-		self.selectedTripEntity = [self retrieveSelectedTripWithEntityId:((TripPointMapAnnotation *)view.annotation).tripId];
-		[self showTripDetailsViewWithTripData:self.selectedTripEntity];
+		[Commons setPreviouslySelectedTrip:[Commons selectedTrip]];
+		
+		[Commons setSelectedTrip:[self retrieveSelectedTripWithEntityId:((TripPointMapAnnotation *)view.annotation).tripId]];
+		
+		[self showTripDetailsViewWithTripData:[Commons selectedTrip]];
 		[mapView tda_showRouteWithAnnotation:view.annotation directions:&_directions];
 	}
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
 	if ([view.annotation isKindOfClass:[TripPointMapAnnotation class]]) {
-		view.transform = CGAffineTransformMakeScale(THVPinScaleNormal, THVPinScaleNormal);
-		[view setHighlighted:NO];
-		
-		MKAnnotationView *relatedAnnotationView = [mapView viewForAnnotation:((TripPointMapAnnotation *)view.annotation).relatedTripPoint];
-		relatedAnnotationView.transform = CGAffineTransformMakeScale(THVPinScaleNormal, THVPinScaleNormal);
-		[relatedAnnotationView setHighlighted:NO];
 		
 		if ([self.directions isCalculating]) {
 			[self.directions cancel];
@@ -138,8 +128,9 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 		[mapView removeOverlays:[mapView overlays]];
 		
 		[self hideTripDetailsView];
-		
-		self.selectedTripEntity = nil;
+
+		[Commons setPreviouslySelectedTrip:[Commons selectedTrip]];
+		[Commons setSelectedTrip:nil];
 	}
 }
 
@@ -240,10 +231,10 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 - (NSString *)pickupStringFromSelectedTrip {
 	NSString *pickupString = [NSString stringWithFormat:
 							  @"%.4f° %@\n%.4f° %@",
-							  fabs([self.selectedTripEntity.pickupLongitude doubleValue]),
-							  (self.selectedTripEntity.pickupLongitude > 0 ? @"N" : @"S"),
-							  fabs([self.selectedTripEntity.pickupLatitude doubleValue]),
-							  (self.selectedTripEntity.pickupLatitude > 0 ? @"E" : @"W")
+							  fabs([[Commons selectedTrip].pickupLongitude doubleValue]),
+							  ([Commons selectedTrip].pickupLongitude > 0 ? @"N" : @"S"),
+							  fabs([[Commons selectedTrip].pickupLatitude doubleValue]),
+							  ([Commons selectedTrip].pickupLatitude > 0 ? @"E" : @"W")
 							  ];
 	return pickupString;
 }
@@ -251,10 +242,10 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 - (NSString *)dropoffStringFromSelectedTrip {
 	NSString *dropoffString = [NSString stringWithFormat:
 								  @"%.4f° %@\n%.4f° %@",
-								  fabs([self.selectedTripEntity.dropoffLongitude doubleValue]),
-								  (self.selectedTripEntity.dropoffLongitude > 0 ? @"N" : @"S"),
-								  fabs([self.selectedTripEntity.dropoffLatitude doubleValue]),
-								  (self.selectedTripEntity.dropoffLatitude > 0 ? @"E" : @"W")
+								  fabs([[Commons selectedTrip].dropoffLongitude doubleValue]),
+								  ([Commons selectedTrip].dropoffLongitude > 0 ? @"N" : @"S"),
+								  fabs([[Commons selectedTrip].dropoffLatitude doubleValue]),
+								  ([Commons selectedTrip].dropoffLatitude > 0 ? @"E" : @"W")
 								  ];
 	return dropoffString;
 }
@@ -262,9 +253,9 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 - (NSString *)additionalInfoFromSelectedTrip {
 	NSString *additionalInfo = [NSString stringWithFormat:
 								@"%.f %@ · %.0f minutes",
-								[self.selectedTripEntity.tripDistance doubleValue],
-								[self.selectedTripEntity.tripDistance floatValue] <= 1 ? @"mile" : @"miles",
-								[self.selectedTripEntity.dropoffDateTime timeIntervalSinceDate:self.selectedTripEntity.pickupDateTime] / 60.0];
+								[[Commons selectedTrip].tripDistance doubleValue],
+								[[Commons selectedTrip].tripDistance floatValue] <= 1 ? @"mile" : @"miles",
+								[[Commons selectedTrip].dropoffDateTime timeIntervalSinceDate:[Commons selectedTrip].pickupDateTime] / 60.0];
 	return additionalInfo;
 }
 
@@ -280,11 +271,9 @@ NSString *const THVTripDetailsStoryboardId = @"tripDetails";
 	UINavigationController *navigationController = self.navigationController;
 	
 	TripsListViewController *newTripsListVC = [self.storyboard instantiateViewControllerWithIdentifier:THVTripsTableStoryboardId];
-	newTripsListVC.selectedTrip = self.selectedTripEntity;
 	[navigationController pushViewController:newTripsListVC animated:NO];
 	
 	TripDetailsViewController *newTripDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:THVTripDetailsStoryboardId];
-	newTripDetailsVC.selectedTripEntity = self.selectedTripEntity;
 	[navigationController pushViewController:newTripDetailsVC animated:YES];
 }
 

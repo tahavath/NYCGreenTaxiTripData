@@ -25,7 +25,6 @@ extern NSString *const THVTripCellIdentifier;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerViewConstraint;
 
-@property (nonatomic) TripData *selectedTrip;
 
 - (IBAction)startPauseDownload:(id)sender;
 

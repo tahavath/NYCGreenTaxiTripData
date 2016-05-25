@@ -21,6 +21,4 @@ extern double const THVStartingRegionDistance;
 @property (weak, nonatomic) IBOutlet UIView *tripDetailsView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tripDetailsHeightConstraint;
 
-@property (nonatomic) TripData *selectedTripEntity;
-
 @end

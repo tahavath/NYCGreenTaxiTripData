@@ -46,7 +46,7 @@
 
 #pragma mark - helper methods
 - (void)setupMapView {
-	[self.mapView addAnnotationsAndReturnPickupWithTripId:self.selectedTripEntity.entityId pickupCoordinate:self.selectedTripEntity.pickupCoordinate pickupDateTime:self.selectedTripEntity.pickupDateTime dropoffCoordinate:self.selectedTripEntity.dropoffCoordinate dropoffDateTime:self.selectedTripEntity.dropoffDateTime];
+	[self.mapView addAnnotationsAndReturnPickupWithTripId:[Commons selectedTrip].entityId pickupCoordinate:[Commons selectedTrip].pickupCoordinate pickupDateTime:[Commons selectedTrip].pickupDateTime dropoffCoordinate:[Commons selectedTrip].dropoffCoordinate dropoffDateTime:[Commons selectedTrip].dropoffDateTime];
 }
 
 @end

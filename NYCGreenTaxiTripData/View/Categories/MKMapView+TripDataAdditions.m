@@ -103,15 +103,7 @@
 		directions = &localDirections;
 	}
 	
-	MKAnnotationView *annotationView = [self tda_viewForAnnotation:annotation];
-	annotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
-	[annotationView setHighlighted:YES];
-	
-	
 	TripPointMapAnnotation *relatedAnnotation = annotation.relatedTripPoint;
-	MKAnnotationView *relatedAnnotationView = [self tda_viewForAnnotation:relatedAnnotation];
-	relatedAnnotationView.transform = CGAffineTransformMakeScale(THVPinScaleWhenSelected, THVPinScaleWhenSelected);
-	[relatedAnnotationView setHighlighted:YES];
 	
 	CLLocationCoordinate2D __block pickupCoordinate = annotation.tripPointType == THVTripPointTypePickup ? annotation.coordinate : relatedAnnotation.coordinate;
 	CLLocationCoordinate2D __block dropoffCoordinate = annotation.tripPointType == THVTripPointTypeDropoff ? annotation.coordinate : relatedAnnotation.coordinate;

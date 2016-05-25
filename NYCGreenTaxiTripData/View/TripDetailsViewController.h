@@ -12,8 +12,6 @@
 
 @interface TripDetailsViewController : UIViewController <MKMapViewDelegate>
 
-@property (nonatomic) TripData *selectedTripEntity;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;

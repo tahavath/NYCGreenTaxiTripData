@@ -26,9 +26,6 @@ NSString *const THVNotificationNameTripsOffsetChanged = @"THVNotificationNameTri
 
 NSString *const THVLabelNoTripsToShow = @"There are no trips to show.\n\nPlease download data first.";
 
-double const THVPinScaleWhenSelected = 1.1;
-double const THVPinScaleNormal = 1.0;
-
 static TripData *THVSelectedTrip = nil;
 static TripData *THVPreviouslySelectedTrip = nil;
 static NSArray *THVTripRoutes = nil;
@@ -76,19 +73,12 @@ static NSArray *THVTripRoutes = nil;
 	return THVPreviouslySelectedTrip;
 }
 
-+ (NSArray *)tripRoutes {
-	return THVTripRoutes;
-}
 + (void)setSelectedTrip:(TripData *)trip {
 	THVSelectedTrip = trip;
 }
 
 + (void)setPreviouslySelectedTrip:(TripData *)previousTrip {
 	THVPreviouslySelectedTrip = previousTrip;
-}
-
-+ (void)setTripRoutes:(NSArray *)routes {
-	THVTripRoutes = routes;
 }
 
 - (NSDateFormatter *)dateFormatter {

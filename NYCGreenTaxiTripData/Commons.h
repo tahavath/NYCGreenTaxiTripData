@@ -40,10 +40,8 @@ extern double const THVPinScaleNormal;
 
 + (TripData *)selectedTrip;
 + (TripData *)previouslySelectedTrip;
-+ (NSArray *)tripRoutes;
 + (void)setSelectedTrip:(TripData *)trip;
 + (void)setPreviouslySelectedTrip:(TripData *)previousTrip;
-+ (void)setTripRoutes:(NSArray *)routes;
 
 - (NSDateFormatter *)dateFormatter;
 - (NSDateFormatter *)monthFormatterForStoringAndSorting;
